@@ -1,0 +1,16 @@
+# Whitelist
+- Google-Ads
+
+# Blocklist
+- OISD-Full
+- d3ward
+- Ads & Tracker
+- ClickBait
+- Crypto
+- Dating
+- Drugs
+- Gambling
+- Malware
+- Phishing
+- Torrent & Piracy
+- VPN & DNS
