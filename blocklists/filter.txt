@@ -3,14 +3,15 @@
 
 # Blocklist
 - OISD-Full
-- d3ward
+- D3ward
+- Secured DNS: DoH(DNS over HTTPS), DoT(DNS over TLS), DoQ(DNS over QUIC)
+- UDP 443 / QUIC
 - Ads & Tracker
 - ClickBait
 - Crypto
 - Dating
 - Drugs
 - Gambling
-- Malware
-- Phishing
+- Malware & Phishing
 - Torrent & Piracy
 - VPN & DNS
