@@ -56,14 +56,14 @@
       "detour": "direct",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
-      "server": "IPTUNNELS-SERVER",
+      "server": "CDN-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
       "security": "auto",
       "authenticated_length": true,
       "tls": {
         "enabled": true,
-        "server_name": "HOSTNAME-SNI",
+        "server_name": "IPTUNNELS-SERVER",
         "insecure": true,
         "utls": {
           "fingerprint": "chrome"
