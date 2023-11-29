@@ -1,0 +1,40 @@
+{
+  "outbounds": [
+    {
+      "type": "vless",
+      "tag": "Vless Reality",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 10000,
+      "uuid": "IPTUNNELS-UUID",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI-SET-BY-SERVER",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "IPTUNNELS-PUBKEY",
+          "short_id": "IPTUNNELS-SHORT-ID"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ]
+}
