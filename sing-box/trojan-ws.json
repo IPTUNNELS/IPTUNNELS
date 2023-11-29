@@ -1,0 +1,145 @@
+{
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "Trojan-WS-HTTPS",
+        "Trojan-WS-HTTPS-CDN",
+        "Trojan-WS-HTTP",
+        "Trojan-WS-HTTP-CDN"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "Trojan-WS-HTTPS",
+        "Trojan-WS-HTTP-CDN",
+        "Trojan-WS-HTTP",
+        "Trojan-WS-HTTP-CDN"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "5m0s"
+    },
+    {
+      "type": "trojan",
+      "tag": "Trojan-WS-HTTPS",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 443,
+      "password": "IPTUNNELS-PASSWORD",
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-trojan-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "HOSTNAME-SNI"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "Trojan-WS-HTTPS-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 443,
+      "password": "IPTUNNELS-PASSWORD",
+      "tls": {
+        "enabled": true,
+        "server_name": "IPTUNNELS-SERVER",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-trojan-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "IPTUNNELS-SERVER"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "Trojan-WS-HTTP",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 80,
+      "password": "IPTUNNELS-PASSWORD",
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-trojan-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "HOSTNAME-SNI"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "Trojan-WS-HTTP-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 80,
+      "password": "IPTUNNELS-PASSWORD",
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-trojan-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "IPTUNNELS-SERVER"
+        }
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ]
+}

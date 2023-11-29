@@ -1,0 +1,149 @@
+{
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "Vless-WS-HTTPS",
+        "Vless-WS-HTTPS-CDN",
+        "Vless-WS-HTTP",
+        "Vless-WS-HTTP-CDN"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "Vless-WS-HTTPS",
+        "Vless-WS-HTTP-CDN",
+        "Vless-WS-HTTP",
+        "Vless-WS-HTTP-CDN"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "5m0s"
+    },
+    {
+      "type": "vless",
+      "tag": "Vless-WS-HTTPS",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "HOSTNAME-SNI"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "Vless-WS-HTTPS-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "tls": {
+        "enabled": true,
+        "server_name": "IPTUNNELS-SERVER",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "IPTUNNELS-SERVER"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "Vless-WS-HTTP",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 80,
+      "uuid": "IPTUNNELS-UUID",
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "HOSTNAME-SNI"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "Vless-WS-HTTP-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 80,
+      "uuid": "IPTUNNELS-UUID",
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "IPTUNNELS-SERVER"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ]
+}
