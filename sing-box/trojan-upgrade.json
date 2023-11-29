@@ -1,0 +1,143 @@
+{
+    "outbounds": [
+      {
+        "type": "selector",
+        "tag": "Internet",
+        "outbounds": [
+          "Best Latency",
+          "Trojan-UPGRADE-HTTPS",
+          "Trojan-UPGRADE-HTTPS-CDN",
+          "Trojan-UPGRADE-HTTP",
+          "Trojan-UPGRADE-HTTP-CDN"
+        ]
+      },
+      {
+        "type": "urltest",
+        "tag": "Best Latency",
+        "outbounds": [
+          "Trojan-UPGRADE-HTTPS",
+          "Trojan-UPGRADE-HTTP-CDN",
+          "Trojan-UPGRADE-HTTP",
+          "Trojan-UPGRADE-HTTP-CDN"
+        ],
+        "url": "https://detectportal.firefox.com/success.txt",
+        "interval": "5m0s"
+      },
+      {
+        "type": "trojan",
+        "tag": "Trojan-UPGRADE-HTTPS",
+        "detour": "direct",
+        "domain_strategy": "prefer_ipv6",
+        "fallback_delay": "300ms",
+        "server": "IPTUNNELS-SERVER",
+        "server_port": 443,
+        "password": "IPTUNNELS-PASSWORD",
+        "tls": {
+          "enabled": true,
+          "server_name": "HOSTNAME-SNI",
+          "insecure": true,
+          "utls": {
+            "fingerprint": "chrome"
+          }
+        },
+        "multiplex": {
+          "enabled": true,
+          "protocol": "smux",
+          "max_streams": 32
+        },
+        "transport": {
+            "type": "httpupgrade",
+            "host": "HOSTNAME-SNI",
+            "path": "/buy-trojan-upgrade-pm-telegram-at-synricha",
+            "headers": {
+              "Host": "HOSTNAME-SNI"
+            }
+          }
+      },
+      {
+        "type": "trojan",
+        "tag": "Trojan-UPGRADE-HTTPS-CDN",
+        "detour": "direct",
+        "domain_strategy": "prefer_ipv6",
+        "fallback_delay": "300ms",
+        "server": "CDN-SERVER",
+        "server_port": 443,
+        "password": "IPTUNNELS-PASSWORD",
+        "tls": {
+          "enabled": true,
+          "server_name": "IPTUNNELS-SERVER",
+          "insecure": true,
+          "utls": {
+            "fingerprint": "chrome"
+          }
+        },
+        "multiplex": {
+          "enabled": true,
+          "protocol": "smux",
+          "max_streams": 32
+        },
+        "transport": {
+            "type": "httpupgrade",
+            "host": "IPTUNNELS-SERVER",
+            "path": "/buy-trojan-upgrade-pm-telegram-at-synricha",
+            "headers": {
+              "Host": "IPTUNNELS-SERVER"
+            }
+          }
+      },
+      {
+        "type": "trojan",
+        "tag": "Trojan-UPGRADE-HTTP",
+        "detour": "direct",
+        "domain_strategy": "prefer_ipv6",
+        "fallback_delay": "300ms",
+        "server": "IPTUNNELS-SERVER",
+        "server_port": 80,
+        "password": "IPTUNNELS-PASSWORD",
+        "multiplex": {
+          "enabled": true,
+          "protocol": "smux",
+          "max_streams": 32
+        },
+        "transport": {
+            "type": "httpupgrade",
+            "host": "HOSTNAME-SNI",
+            "path": "/buy-trojan-upgrade-pm-telegram-at-synricha"
+          }
+      },
+      {
+        "type": "trojan",
+        "tag": "Trojan-UPGRADE-HTTP-CDN",
+        "detour": "direct",
+        "domain_strategy": "prefer_ipv6",
+        "fallback_delay": "300ms",
+        "server": "CDN-SERVER",
+        "server_port": 80,
+        "password": "IPTUNNELS-PASSWORD",
+        "multiplex": {
+          "enabled": true,
+          "protocol": "smux",
+          "max_streams": 32
+        },
+        "transport": {
+            "type": "httpupgrade",
+            "host": "IPTUNNELS-SERVER",
+            "path": "/buy-trojan-upgrade-pm-telegram-at-synricha"
+          }
+      },
+      {
+        "type": "direct",
+        "tag": "direct",
+        "domain_strategy": "prefer_ipv6",
+        "fallback_delay": "300ms"
+      },
+      {
+        "type": "block",
+        "tag": "block-out"
+      },
+      {
+        "type": "dns",
+        "tag": "dns-out"
+      }
+    ]
+  }

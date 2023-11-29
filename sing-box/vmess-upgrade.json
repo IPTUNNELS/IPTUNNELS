@@ -1,0 +1,151 @@
+{
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "Vmess-UPGRADE-HTTPS",
+        "Vmess-UPGRADE-HTTPS-CDN",
+        "Vmess-UPGRADE-HTTP",
+        "Vmess-UPGRADE-HTTP-CDN"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "Vmess-UPGRADE-HTTPS",
+        "Vmess-UPGRADE-HTTP-CDN",
+        "Vmess-UPGRADE-HTTP",
+        "Vmess-UPGRADE-HTTP-CDN"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "5m0s"
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-UPGRADE-HTTPS",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "host": "HOSTNAME-SNI",
+        "path": "/buy-vmess-upgrade-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "HOSTNAME-SNI"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-UPGRADE-HTTPS-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "IPTUNNELS-SERVER",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "host": "IPTUNNELS-SERVER",
+        "path": "/buy-vmess-upgrade-pm-telegram-at-synricha",
+        "headers": {
+          "Host": "IPTUNNELS-SERVER"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-UPGRADE-HTTP",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 80,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "host": "HOSTNAME-SNI",
+        "path": "/buy-vmess-upgrade-pm-telegram-at-synricha"
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-UPGRADE-HTTP-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "CDN-SERVER",
+      "server_port": 80,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "host": "IPTUNNELS-SERVER",
+        "path": "/buy-vmess-upgrade-pm-telegram-at-synricha"
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ]
+}
