@@ -1,0 +1,99 @@
+{
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "Vmess-GRPC-HTTPS",
+        "Vmess-GRPC-HTTPS-CDN"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "Vmess-GRPC-HTTPS",
+        "Vmess-GRPC-HTTP-CDN"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "5m0s"
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-GRPC-HTTPS",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "buy-vmess-grpc-pm-telegram-at-synricha",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "Vmess-GRPC-HTTPS-CDN",
+      "detour": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms",
+      "server": "IPTUNNELS-SERVER",
+      "server_port": 443,
+      "uuid": "IPTUNNELS-UUID",
+      "security": "auto",
+      "authenticated_length": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "HOSTNAME-SNI",
+        "insecure": true,
+        "utls": {
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "buy-vmess-grpc-pm-telegram-at-synricha",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_strategy": "prefer_ipv6",
+      "fallback_delay": "300ms"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ]
+}
