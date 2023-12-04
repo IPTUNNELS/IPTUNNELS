@@ -24,7 +24,7 @@
 OpenClash Config untuk VVIP IPTUNNELS
 
 - [Buy VVIP IPTUNNELS](https://join.iptunnels.com)
-- [Join Telegram](https://t.me/+O08-QK6VNXU5NzU1)
+- [Join Telegram](https://t.me/iptunnels)
 - [Requests Rules](https://github.com/IPTUNNELS/IPTUNNELS/issues/new/choose)
 
 # Features
@@ -49,11 +49,12 @@ Setelah mengedit config config-metacubeX.yaml dan setiap file pada folder proxy_
 
 Jangan Rubah apapun pada settingan ini, Jika pernah dirubah maka lakukan restore terlebih dahulu.
 
-![Overwrite Settings](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/config-metacubeX.png "Overwrite Settings")
+![Overwrite Settings](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/overwrite-settings.png "Overwrite Settings")
 
 ## Operation Mode
 
 - Operation Mode **SWITCH PAGE TO FAKE IP MODE** terlebih dahulu.
+- Pastikan Centang **Enable Meta Core**
 - Ceklist/centang opsi sesuai gambar berikut:
 
 ![Gambar Operation Mode](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/switch-fake-ip.png "Operation Mode")
