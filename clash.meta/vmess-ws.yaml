@@ -1,0 +1,64 @@
+proxies:
+- name: Vmess-WS-HTTPS
+  type: vmess
+  server: IPTUNNELS-SERVER
+  port: 443
+  uuid: IPTUNNELS-UUID
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: HOSTNAME-SNI
+  network: ws
+  ws-opts:
+    ws-service-name: /buy-vmess-ws-pm-telegram-at-synricha
+    headers:
+      Host: HOSTNAME-SNI
+
+- name: Vmess-WS-HTTPS-CDN
+  type: vmess
+  server: CDN-SERVER
+  port: 443
+  uuid: IPTUNNELS-UUID
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: IPTUNNELS-SERVER
+  network: ws
+  ws-opts:
+    ws-service-name: /buy-vmess-ws-pm-telegram-at-synricha
+    headers:
+      Host: IPTUNNELS-SERVER
+
+- name: Vmess-WS-HTTP
+  type: vmess
+  server: IPTUNNELS-SERVER
+  port: 80
+  uuid: IPTUNNELS-UUID
+  alterId: 0
+  cipher: auto
+  udp: true
+  servername: HOSTNAME-SNI
+  network: ws
+  ws-opts:
+    ws-service-name: /buy-vmess-ws-pm-telegram-at-synricha
+    headers:
+      Host: HOSTNAME-SNI
+
+- name: Vmess-WS-HTTP-CDN
+  type: vmess
+  server: CDN-SERVER
+  port: 80
+  uuid: IPTUNNELS-UUID
+  alterId: 0
+  cipher: auto
+  udp: true
+  servername: IPTUNNELS-SERVER
+  network: ws
+  ws-opts:
+    ws-service-name: /buy-vmess-ws-pm-telegram-at-synricha
+    headers:
+      Host: IPTUNNELS-SERVER
