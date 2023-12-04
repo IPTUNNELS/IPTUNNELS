@@ -43,9 +43,9 @@ OpenClash Config untuk VVIP IPTUNNELS
 
 Setelah mengedit config Fallback.yaml dan setiap file pada folder proxy_provider serta rule_direct.yaml pada folder rule_provider maka kita akan setting openclash via luCI. Silahkan Login LuCI dan masuk ke Services > Openclash
 
-# Global Setting
+# Overwrite Settings
 
-Hasil settingan pada global setting akan meng-overide settingal awal pada file Fallback.yaml.
+Jangan Rubah apapun pada settingan ini, Jika pernah dirubah maka lakukan restore terlebih dahulu.
 
 ## Operation Mode
 
