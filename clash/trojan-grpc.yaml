@@ -1,0 +1,24 @@
+proxies:
+- name: TROJAN-GRPC-HTTPS
+  type: trojan
+  server: IPTUNNELS-SERVER
+  port: 443
+  password: IPTUNNELS-PASSWORD
+  network: grpc
+  sni: HOSTNAME-SNI
+  skip-cert-verify: true
+  udp: true
+  grpc-opts:
+    grpc-service-name: buy-trojan-grpc-pm-telegram-at-synricha
+
+- name: TROJAN-GRPC-HTTPS-CDN
+  type: trojan
+  server: CDN-SERVER
+  port: 443
+  password: IPTUNNELS-PASSWORD
+  network: grpc
+  sni: IPTUNNELS-SERVER
+  skip-cert-verify: true
+  udp: true
+  grpc-opts:
+    grpc-service-name: buy-trojan-grpc-pm-telegram-at-synricha
