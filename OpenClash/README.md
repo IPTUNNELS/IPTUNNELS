@@ -1,4 +1,5 @@
 ![OpenClash](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/openclash.png "OpenClash")
+
 **Table of Contents**
 
 - [OpenClash Meta Kernel](#openclash-meta-kernel)
@@ -8,7 +9,6 @@
 - [Plugin Settings](#)
   - [Operation Mode](#operation-mode)
   - [DNS Setting](#dns-setting)
-	- [Preselease-Alpha](#preselease-alpha)
   - [IPv6 Setting](#ipv6-settings)
   - [GEO Update](#geo-update)
   - [Version Update](#version-update)
@@ -17,6 +17,7 @@
   - [Import config-metacubeX.yaml](#import-config-metacubexyaml)
   - [Import Proxy Provider](#import-proxy-provider)
   - [Import Rule Provider](#import-rule-provider)
+  - [Import Manual Kernel](#import-manual-kernel)
 
 # OpenClash Meta Kernel
 
@@ -63,13 +64,6 @@ Jangan Rubah apapun pada settingan ini, Jika pernah dirubah maka lakukan restore
 
 ![Gambar Setting DNS](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/dns-settings.png "Setting DNS")
 
-## Preselease-Alpha
-
-- Download kernel [MetacubeX](https://github.com/MetaCubeX/mihomo/releases/tag/Prerelease-Alpha)
-- Pilih file bernama **mihomo-linux-arm64-alpha-abcdef.gz**
-- Upload file tersebut sebagai **Upload File Type : [Meta] Core File**
-
-![Gambar Meta Core](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/kernel-metacubex.png "Meta Core")
 
 ## IPv6 Settings
 
@@ -162,3 +156,11 @@ Jika Semua file pada folder proxy_provider yang terdiri dari Akun-ID.yaml, Akun-
 
 Traffic direct/bypass sudah disikan ke rule_direct.yaml maka bisa langsung import semua files pada folder rule_provider pada **Upload File Type : Rule Provider File**.
 ![Gambar Upload Rule](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/rule-provider.png "Upload Rule")
+
+## Import Manual Kernel
+
+- Download kernel [MetacubeX](https://github.com/MetaCubeX/mihomo/releases/tag/Prerelease-Alpha)
+- Pilih file bernama **mihomo-linux-arm64-alpha-abcdef.gz**
+- Upload file tersebut sebagai **Upload File Type : [Meta] Core File**
+
+![Gambar Meta Core](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/kernel-metacubex.png "Meta Core")
