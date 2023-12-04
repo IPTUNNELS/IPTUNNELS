@@ -47,6 +47,8 @@ Setelah mengedit config Fallback.yaml dan setiap file pada folder proxy_provider
 
 Jangan Rubah apapun pada settingan ini, Jika pernah dirubah maka lakukan restore terlebih dahulu.
 
+![Overwrite Settings](https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/images/config-metacubeX.png "Overwrite Settings")
+
 ## Operation Mode
 
 - Operation Mode **SWITCH PAGE TO FAKE IP MODE** terlebih dahulu.
