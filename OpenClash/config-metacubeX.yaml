@@ -269,14 +269,10 @@ dns:
   - 9.9.9.9#Jalur ID
   - 1.1.1.1#Jalur SG
   - 8.8.8.8#Jalur WORLD
-  - 208.67.222.222#INTERFACE-WAN
-  - 208.67.222.222#INTERFACE-WAN
   fallback:
   - 149.112.112.112:53#Jalur ID
   - 1.0.0.1:53#Jalur SG
   - 8.8.4.4:53#Jalur WORLD
-  - 208.67.220.220#INTERFACE-WAN
-  - 208.67.220.220#INTERFACE-WAN
   nameserver-policy:
     geosite:oisd-full,d3ward,rule-doh,rule-malicious: rcode://success
     RULE-SET:rule_direct: 208.67.220.220#Koneksi Direct
