@@ -88,7 +88,7 @@ https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geoip.dat
 Jika belum ada GeoIP pada folder `/etc/openclash/` maka silahkan download terlebih dahulu.
 
 ```sh
-curl -o /etc/openclash/GeoIP.dat https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geoip.dat
+wget -O /etc/openclash/GeoIP.dat https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geoip.dat
 chmod 744 /etc/openclash/GeoIP.dat
 ```
 
@@ -101,7 +101,7 @@ https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.dat
 WAJIB menggunakan GeoSite custom kami. Silahkan download terlebih dahulu.
 
 ```sh
-curl -o /etc/openclash/GeoSite.dat https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.dat
+wget -O /etc/openclash/GeoSite.dat https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.dat
 chmod 744 /etc/openclash/GeoSite.dat
 ```
 
