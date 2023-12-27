@@ -44,6 +44,7 @@ opkg install /tmp/luci-app-homeproxy_release-2023122200_all.ipk
 **JANGAN BUKA HOMEPROXY DI LUCI TERLEBIH DAHULU**
 
 Patch ini menggunakan custom geo dari [malikshi](https://t.me/synricha) selaku owner/maintener [IPTUNNELS](https://join.iptunnels.com/).
+
 Install Patch 1
 ```sh
 wget -O /etc/homeproxy/scripts/generate_client.uc https://raw.githubusercontent.com/IPTUNNELS/IPTUNNELS/main/homeproxy/patch/generate_client.uc && chmod +x /etc/homeproxy/scripts/generate_client.uc
