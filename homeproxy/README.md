@@ -60,12 +60,12 @@ wget -O /etc/homeproxy/scripts/update_resources.sh https://raw.githubusercontent
 
 Download GEOIP
 ```sh
-./etc/homeproxy/scripts/update_resources.sh geoip
+bash /etc/homeproxy/scripts/update_resources.sh geoip
 ```
 
 Download GEOSITE
 ```sh
-./etc/homeproxy/scripts/update_resources.sh geosite
+bash /etc/homeproxy/scripts/update_resources.sh geosite
 ```
 
 ## Config Homeproxy
