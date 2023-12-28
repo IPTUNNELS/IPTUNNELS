@@ -12,7 +12,7 @@ proxies:
   servername: HOSTNAME-SNI
   network: ws
   ws-opts:
-    ws-service-name: /buy-vmess-upgrade-pm-telegram-at-synricha
+    path: /buy-vmess-upgrade-pm-telegram-at-synricha
     headers:
       Host: HOSTNAME-SNI
     v2ray-http-upgrade: true
@@ -30,7 +30,7 @@ proxies:
   servername: IPTUNNELS-SERVER
   network: ws
   ws-opts:
-    ws-service-name: /buy-vmess-upgrade-pm-telegram-at-synricha
+    path: /buy-vmess-upgrade-pm-telegram-at-synricha
     headers:
       Host: IPTUNNELS-SERVER
     v2ray-http-upgrade: true
@@ -46,7 +46,7 @@ proxies:
   servername: HOSTNAME-SNI
   network: ws
   ws-opts:
-    ws-service-name: /buy-vmess-upgrade-pm-telegram-at-synricha
+    path: /buy-vmess-upgrade-pm-telegram-at-synricha
     headers:
       Host: HOSTNAME-SNI
     v2ray-http-upgrade: true
@@ -62,7 +62,7 @@ proxies:
   servername: IPTUNNELS-SERVER
   network: ws
   ws-opts:
-    ws-service-name: /buy-vmess-upgrade-pm-telegram-at-synricha
+    path: /buy-vmess-upgrade-pm-telegram-at-synricha
     headers:
       Host: IPTUNNELS-SERVER
     v2ray-http-upgrade: true
