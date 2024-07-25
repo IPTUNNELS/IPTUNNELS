@@ -1,0 +1,13 @@
+{
+  "inbounds": [
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 10105,
+      "udp_fragment": true,
+      "sniff": true,
+      "sniff_override_destination": false
+    }
+  ]
+}

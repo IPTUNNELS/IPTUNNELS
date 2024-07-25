@@ -1,0 +1,27 @@
+{
+"route": {
+    "rules": [
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "rule_set":["geoip-private"],
+        "outbound":"direct-out"
+      }
+    ],
+    "rule_set":[
+      {
+        "type":"remote",
+        "tag":"geoip-private",
+        "format":"binary",
+        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-private.srs",
+        "update_interval":"1d",
+        "download_detour":"Latency"
+      }
+    ],
+    "auto_detect_interface": true,
+    "override_android_vpn": true,
+    "final": "Internet"
+  }
+}
