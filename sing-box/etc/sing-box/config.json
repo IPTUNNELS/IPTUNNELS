@@ -255,7 +255,7 @@
       {
         "type": "trojan",
         "tag": "TROJAN-WS",
-        "detour": "direct",
+        "detour": "direct-out",
         "domain_strategy": "prefer_ipv6",
         "fallback_delay": "300ms",
         "server": "IPTUNNELS-SERVER",
@@ -285,7 +285,7 @@
       {
         "type": "trojan",
         "tag": "TROJAN-UPGRADE",
-        "detour": "direct",
+        "detour": "direct-out",
         "domain_strategy": "prefer_ipv6",
         "fallback_delay": "300ms",
         "server": "CDN-SERVER",
@@ -316,7 +316,7 @@
       {
         "type": "trojan",
         "tag": "TROJAN-GRPC",
-        "detour": "direct",
+        "detour": "direct-out",
         "domain_strategy": "prefer_ipv6",
         "fallback_delay": "300ms",
         "server": "IPTUNNELS-SERVER",

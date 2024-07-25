@@ -26,7 +26,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-UPGRADE-HTTPS",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -59,7 +59,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-UPGRADE-HTTPS-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",
@@ -92,7 +92,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-UPGRADE-HTTP",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -114,7 +114,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-UPGRADE-HTTP-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",

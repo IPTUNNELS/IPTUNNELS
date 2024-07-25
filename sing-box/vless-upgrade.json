@@ -26,7 +26,7 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTPS",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -58,7 +58,7 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTPS-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",
@@ -90,7 +90,7 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTP",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -111,7 +111,7 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTP-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",

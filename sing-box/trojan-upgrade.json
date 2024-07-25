@@ -26,7 +26,7 @@
     {
       "type": "trojan",
       "tag": "Trojan-UPGRADE-HTTPS",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -57,7 +57,7 @@
     {
       "type": "trojan",
       "tag": "Trojan-UPGRADE-HTTPS-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",
@@ -88,7 +88,7 @@
     {
       "type": "trojan",
       "tag": "Trojan-UPGRADE-HTTP",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
@@ -108,7 +108,7 @@
     {
       "type": "trojan",
       "tag": "Trojan-UPGRADE-HTTP-CDN",
-      "detour": "direct",
+      "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms",
       "server": "CDN-SERVER",
