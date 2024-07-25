@@ -127,7 +127,7 @@
     },
     {
       "type": "direct",
-      "tag": "direct",
+      "tag": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "300ms"
     },
