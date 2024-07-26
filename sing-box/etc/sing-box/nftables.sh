@@ -15,8 +15,9 @@ CustomBypassIP='{ 192.168.0.0/16, 10.0.8.0/24 }'
 clearFirewallRules() {
     ip -f inet rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE || { echo "Delete rule mark ipv4"; }
     ip -f inet6 rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE || { echo "Delete rule mark ipv6"; }
-    ip route del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE
-    ip -6 route del local ::/0 dev lo table $PROXY_ROUTE_TABLE
+
+    ip route del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Delete route ipv4"; }
+    ip -6 route del local ::/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Delete route ipv6"; }
     nft flush ruleset >/dev/null 2>&1  # Redirect output to avoid clutter
     /etc/init.d/firewall restart       # Restart firewall service
     sleep 3                            # Give firewall time to restart
@@ -29,8 +30,8 @@ if [ "$1" = "set" ]; then
     else
         echo "Routing rule already exists."  # Inform the user
     fi
-    # Add route ipv4
-    ip route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE
+
+    ip route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Error setting local route IPv4. Exiting."; }
 
     # Routing IPv6 rules for OpenWrt - with checks and handling for existing routes
     if ! ip -f inet6 rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE"; then
@@ -38,14 +39,13 @@ if [ "$1" = "set" ]; then
     else
         echo "Routing rule already exists."  # Inform the user
     fi
-    # Add route ipv6
-    ip -6 route add local ::/0 dev lo table $PROXY_ROUTE_TABLE
+
+    ip -6 route add local ::/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Error setting local route IPv6. Exiting."; }
 
     nft -f - <<EOF
 table inet sing-box {
     chain prerouting_tproxy {
         type filter hook prerouting priority mangle; policy accept;
-
         # DNS & Custom Bypass
         meta l4proto {tcp, udp} th dport 53 tproxy to :$TPROXY_PORT return
         ip daddr $CustomBypassIP return
@@ -60,10 +60,10 @@ table inet sing-box {
         # Handle established transparent proxy connections
         meta l4proto tcp socket transparent 1 meta mark set $PROXY_FWMARK accept
 
+        # Mark other traffic for TPROXY
         # IPv4 TPROXY rule
         meta l4proto {tcp, udp} tproxy ip to :$TPROXY_PORT meta mark set $PROXY_FWMARK
-
-        # IPv6 TPROXY rule (adjust if your proxy listens on a different IPv6 port)
+        # IPv6 TPROXY rule (assuming your proxy listens on both IPv4 and IPv6)
         meta l4proto {tcp, udp} tproxy ip6 to :$TPROXY_PORT meta mark set $PROXY_FWMARK
     }
 
@@ -91,11 +91,11 @@ table inet sing-box {
     chain forward_tproxy {
         type filter hook forward priority filter; policy accept;
 
-        # Bypass LAN & modem gateway traffic
+        # Bypass LAN & modem gateway traffic (replace with your actual subnets)
         ip saddr $CustomBypassIP return
 
-        # Mark other traffic for proxy
-        meta l4proto { tcp, udp } mark set $PROXY_FWMARK 
+        # Mark traffic for proxy
+        meta l4proto { tcp, udp } mark set $PROXY_FWMARK
     }
 }
 EOF
