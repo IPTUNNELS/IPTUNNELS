@@ -20,6 +20,10 @@
         "detour": "direct-out"
       },
       {
+        "tag":"block-dns",
+        "address":"rcode://refused"
+      },
+      {
         "tag": "remote",
         "address": "fakeip"
       }
@@ -36,8 +40,21 @@
         "server":"direct-dns"
       },
       {
-        "rule_set": ["geoip-private"],
+        "ip_is_private": true,
         "server":"direct-dns"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "network": "udp"
+          },
+          {
+            "port": 443
+          }
+        ],
+        "server": "block-dns"
       },
       {
         "query_type": [

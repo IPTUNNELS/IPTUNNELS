@@ -6,20 +6,24 @@
         "outbound": "dns-out"
       },
       {
-        "rule_set":["geoip-private"],
+        "ip_is_private": true,
         "outbound":"direct-out"
-      }
-    ],
-    "rule_set":[
+      },
       {
-        "type":"remote",
-        "tag":"geoip-private",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-private.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "network": "udp"
+          },
+          {
+            "port": 443
+          }
+        ],
+        "outbound": "block-out"
       }
     ],
+    "rule_set":[],
     "auto_detect_interface":true,
     "final":"Internet"
   }
