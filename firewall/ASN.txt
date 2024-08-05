@@ -1,65 +1,66 @@
-asn9341
-asn215918
-asn13335
-asn395747
-asn394536
-asn209242
-asn203898
-asn202623
-asn14789
-asn139242
-asn133877
-asn132892
-asn133798
-asn23693
-asn24203
-asn45727
-asn4761
-asn7713
-asn398962
-asn2516
-asn17676
-asn4713
-asn9605
-asn2527
-asn4788
-asn9534
-asn4818
-asn9930
-asn38466
-asn9299
-asn17639
-asn132199
-asn4775
-asn10139
-asn7303
-asn27747
-asn22927
-asn11664
-asn11315
-asn131445
-asn133481
-asn45629
-asn23969
-asn24378
-asn7552
-asn45899
-asn18403
-asn131429
-asn45543
-asn9873
-asn131267
-asn10226
-asn24337
-asn132513
-asn136255
-asn58952
-asn133385
-asn9988
-asn132167
-asn38623
-asn45498
-asn131178
-asn17976
-asn38901
-asn20940
+11315   | Telefonica Moviles Argentina S.A. Movistar Argentina, AR
+11664   | Techtel LMDS Comunicaciones Interactivas S.A., AR
+22927   | Telefonica de Argentina, AR
+27747   | Telecentro S.A., AR
+7303    | Telecom Argentina S.A., AR
+398962  | CONTROLD, CA
+327738  | AFRICELL-DRC, CD
+328442  | UNITED-SA, CD
+37020   | CELTEL-DRC, CD
+37447   | ORANGE-RDC, CD
+37453   | VODACOM-CONGO, CD
+133798  | SMARTFREN-AS-ID PT. Smartfren Telecom, Tbk, ID
+17670   | MNCKABELMEDIACOM-ID PT. MNC Kabel Mediacom, ID
+18004   | WIRELESSNET-ID PT WIRELESS INDONESIA WIN , ID
+215918  | MALIKSHI-AS, ID
+23693   | TELKOMSEL-ASN-ID PT. Telekomunikasi Selular, ID
+24203   | NAPXLNET-AS-ID PT XL Axiata, ID
+45727   | THREE-AS-ID Hutchison CP Telecommunications, PT, ID
+4761    | INDOSAT-INP-AP INDOSAT Internet Network Provider, ID
+55674   | PUSKOM-UNY-AS-ID Universitas Negeri Yogyakarta, ID
+59151   | IDNIC-JOGJAPROV-AS-ID Diskominfo DIY, ID
+7713    | TELKOMNET-AS-AP PT Telekomunikasi Indonesia, ID
+9341    | ICONPLN-ID-AP-ISP PT INDONESIA COMNETS PLUS, ID
+17676   | GIGAINFRA SoftBank Corp., JP
+2516    | KDDI KDDI CORPORATION, JP
+2527    | SO-NET Sony Network Communications Inc., JP
+4713    | OCN NTT Communications Corporation, JP
+9605    | DOCOMO NTT DOCOMO, INC., JP
+131178  | EZECOM-AS-AP EZECOM CO., LTD., KH
+17976   | CAMGSM-CELLCARD-AS-AP CAMGSM Company Ltd, KH
+38623   | VIETTELCAMBODIA-AS-AP ISPIXP IN CAMBODIA WITH THE BEST VERVICE IN THERE., KH
+38901   | EZECOM-AS-AP EZECOM CO., LTD., KH
+45498   | SMART-AXIATA-KH SMART AXIATA Co., Ltd., KH
+10226   | ETL-IX-AS-AP ETL Company Limited, LA
+131267  | UNITEL-LA Star Telecom, LA
+132513  | SKYTELLAO-AS-AP Sky Telecom State Company, LA
+24337   | SKYTELECOM-AS-AP SkytelecomTransit provider and ISP in Vientiene., LA
+9873    | TELECOM-LA-AS-AP Lao Telecom Communication, LTC, LA
+132167  | OML-MM OOREDOO MYANMAR, MM
+133385  | ATOMMYANMAR-AS-AP Atom Myanmar Limited, MM
+136255  | TIMCL-AS-AP Telecom International Myanmar Co., Ltd, MM
+58952   | FRONTIIRCOLTD-MM Frontiir Co. Ltd, MM
+9988    | MPT-AP Myanma Posts and Telecommunications, MM
+38466   | UMOBILE-AS-AP U Mobile Sdn Bhd, MY
+4788    | TTSSB-MY TM TECHNOLOGY SERVICES SDN. BHD., MY
+4818    | DIGIIX-AP DiGi Telecommunications Sdn. Bhd., MY
+9534    | MAXIS-AS1-AP Binariang Berhad, MY
+9930    | TTNET-MY TIME dotCom Berhad No. 14, Jalan Majistret U126 Hicom Glenmarie Industrial Park 40150 Shah Alam Selangor, Malaysia, MY
+20940   | AKAMAI-ASN1, NL
+10139   | SMARTBRO-PH-AP Smart Broadband, Inc., PH
+132199  | GLOBE-MOBILE-5TH-GEN-AS Globe Telecom Inc., PH
+17639   | CONVERGE-AS Converge ICT Solutions Inc., PH
+4775    | GLOBE-TELECOM-AS Globe Telecoms, PH
+9299    | IPG-AS-AP Philippine Long Distance Telephone Company, PH
+131445  | AIS3G-2100-AS-AP Advance Wireless Network, TH
+132280  | SYMPHONY-AP-TH Symphony Communication Thailand PCL., TH
+133481  | AIS-FIBRE-AS-AP AIS Fibre, TH
+23969   | TOT-NET TOT Public Company Limited, TH
+24378   | ENGTAC-AS-TH-AP Total Access Communication PLC., TH
+45629   | JASTEL-NETWORK-TH-AP JasTel Network International Gateway, TH
+30598   | CCL-ASN, US
+131429  | MOBIFONE-AS-VN MOBIFONE Corporation, VN
+18403   | FPT-AS-AP FPT Telecom Company, VN
+45543   | SCTV-AS-VN SaiGon Tourist cable Televition Company, VN
+45899   | VNPT-AS-VN VNPT Corp, VN
+7552    | VIETEL-AS-AP Viettel Group, VN
