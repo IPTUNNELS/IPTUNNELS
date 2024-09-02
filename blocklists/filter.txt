@@ -8,7 +8,6 @@
 - UDP 443 / QUIC
 - Ads & Tracker
 - ClickBait
-- Crypto
 - Dating
 - Drugs
 - Gambling
