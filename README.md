@@ -64,7 +64,65 @@ Maka cara mengatur akun jadi begini:
 
 - Server Address    : support.zoom.us
 - Request Host      : support.zoom.us.abcd.iptunnels.com
-- SNI               : support.zoom.us.abcd.iptunnels.com
+- SNI/Servername    : support.zoom.us.abcd.iptunnels.com
+
+Contoh wildcard trojan ws vvip iptunnels di clash/meta/mihomo
+
+```yaml
+- name: Trojan-WS-HTTPS-CDN
+  type: trojan
+  server: support.zoom.us
+  port: 443
+  password: IPTUNNELS-PASSWORD
+  network: ws
+  sni: support.zoom.us.abcd.iptunnels.com
+  skip-cert-verify: true
+  udp: true
+  ws-opts:
+    path: /buy-trojan-ws-pm-telegram-at-synricha
+    headers:
+      Host: support.zoom.us.abcd.iptunnels.com
+```
+
+Contoh wildcard vmess ws vvip iptunnels di clash/meta/mihomo
+
+```yaml
+- name: Vmess-WS-HTTPS-CDN
+  type: vmess
+  server: support.zoom.us
+  port: 443
+  uuid: IPTUNNELS-UUID
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: support.zoom.us.abcd.iptunnels.com
+  network: ws
+  ws-opts:
+    path: /buy-vmess-ws-pm-telegram-at-synricha
+    headers:
+      Host: support.zoom.us.abcd.iptunnels.com
+```
+
+Contoh wildcard vless ws vvip iptunnels di clash/meta/mihomo
+
+```yaml
+- name: Vless-WS-HTTPS-CDN
+  type: vless
+  server: support.zoom.us
+  port: 443
+  uuid: IPTUNNELS-UUID
+  network: ws
+  servername: support.zoom.us.abcd.iptunnels.com
+  skip-cert-verify: true
+  udp: true
+  tls: true
+  ws-opts:
+    path: /buy-vless-ws-pm-telegram-at-synricha
+    headers:
+      Host: support.zoom.us.abcd.iptunnels.com
+```
 
 Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 ### Wildcard Proxied CDN Cloudflare
@@ -72,9 +130,16 @@ Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 - int.vidio.com
 - staging.vidio.com
 - vidio.com
+- brevo.com
+- email1.vidio.com
+- email2.vidio.com
+- email3.vidio.com
 - zoom.us
 - zoominfo.com
+- zoomgov.com
+- lipcon.com
 - ruangguru.com
+- data.mt
 - spotify.com
 - fb.com
 - q4inc.com
@@ -87,6 +152,7 @@ Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 - midtrans.com
 - medallia.com
 - gopay.co.id
+- byu.id
 - viu.com
 - duniagames.co.id
 - udemy.com
@@ -95,6 +161,8 @@ Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 - duolingo.com
 - cloudflare.com
 - cloudflare.net
+- pacloudflare.com
+- api.letsencrypt.org
 - cdnjs.com
 - jsdelivr.com
 - jsdelivr.net
@@ -104,17 +172,32 @@ Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 - cvs.freefiremobile.com
 - onetrust.com
 - grabtaxi.com
+- klikindomaret.com
+- cdn
 - com
 - net
 - org
+- co
 - us
 - ac.id
 - go.id
 - co.id
 - id
 - edu
+- gov
+- io
+- ai
+- gg
+- me
+- uk
+- de
+- br
+- jp
+- it
+- fr
 
 ### Wildcard Non-Proxied CDN Cloudflare
+- sni
 - instagram.com
 - scorecardresearch.com
 - iflix.com
@@ -124,7 +207,16 @@ Jika Mode HTTPS 443 tidak work maka gunakan mode HTTP 80
 - googlesyndication.com
 - googleadservices.com
 - googlevideo.com
+- googlehosted.com
+- ggpht.com
 - tokopedia.net
 - tokopedia.com
 - shopee.co.id
+- tiktokcdn.com
+- awsglobalaccelerator.com
+- akamaized.net
+- edgesuite.net
+- edgekey.net
 - cloudfront.net
+- bytegeo.akadns.net
+- bytedance.map.fastly.net
