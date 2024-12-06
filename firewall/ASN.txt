@@ -21,6 +21,7 @@
 24203   | NAPXLNET-AS-ID PT XL Axiata, ID
 45727   | THREE-AS-ID Hutchison CP Telecommunications, PT, ID
 4761    | INDOSAT-INP-AP INDOSAT Internet Network Provider, ID
+4800    | LINTASARTA-AS-AP PT Aplikanusa Lintasarta, ID
 55674   | PUSKOM-UNY-AS-ID Universitas Negeri Yogyakarta, ID
 59151   | IDNIC-JOGJAPROV-AS-ID Diskominfo DIY, ID
 63859   | MYREPUBLIC-AS-ID PT. Eka Mas Republik, ID
@@ -63,6 +64,11 @@
 23969   | TOT-NET TOT Public Company Limited, TH
 24378   | ENGTAC-AS-TH-AP Total Access Communication PLC., TH
 45629   | JASTEL-NETWORK-TH-AP JasTel Network International Gateway, TH
+327885  | Viettel-Tanzania, TZ
+33765   | TTCLDATA, TZ
+36908   | VTL-ASN, TZ
+37035   | MIC-AS, TZ
+37133   | airtel-tz-as, TZ
 30598   | CCL-ASN, US
 131429  | MOBIFONE-AS-VN MOBIFONE Corporation, VN
 18403   | FPT-AS-AP FPT Telecom Company, VN
