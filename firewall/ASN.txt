@@ -1,14 +1,4 @@
-11315   | Telefonica Moviles Argentina S.A. Movistar Argentina, AR
-11664   | Techtel LMDS Comunicaciones Interactivas S.A., AR
-22927   | Telefonica de Argentina, AR
-27747   | Telecentro S.A., AR
-7303    | Telecom Argentina S.A., AR
 398962  | CONTROLD, CA
-327738  | AFRICELL-DRC, CD
-328442  | UNITED-SA, CD
-37020   | CELTEL-DRC, CD
-37447   | ORANGE-RDC, CD
-37453   | VODACOM-CONGO, CD
 133798  | SMARTFREN-AS-ID PT. Smartfren Telecom, Tbk, ID
 139452  | MYREPUBLIC-AS-ID PT. Eka Mas Republik, ID
 139994  | XLNET-FTTH-ID PT XL Axiata Tbk, ID
@@ -16,7 +6,6 @@
 17670   | MNCKABELMEDIACOM-ID PT. MNC Kabel Mediacom, ID
 17885   | JKTXLNET-AS-AP PT XL Axiata Tbk, ID
 18004   | WIRELESSNET-ID PT WIRELESS INDONESIA WIN , ID
-215918  | MALIKSHI-AS, ID
 23693   | TELKOMSEL-ASN-ID PT. Telekomunikasi Selular, ID
 24203   | NAPXLNET-AS-ID PT XL Axiata, ID
 45727   | THREE-AS-ID Hutchison CP Telecommunications, PT, ID
@@ -27,51 +16,3 @@
 63859   | MYREPUBLIC-AS-ID PT. Eka Mas Republik, ID
 7713    | TELKOMNET-AS-AP PT Telekomunikasi Indonesia, ID
 9341    | ICONPLN-ID-AP-ISP PT INDONESIA COMNETS PLUS, ID
-17676   | GIGAINFRA SoftBank Corp., JP
-2516    | KDDI KDDI CORPORATION, JP
-2527    | SO-NET Sony Network Communications Inc., JP
-4713    | OCN NTT Communications Corporation, JP
-9605    | DOCOMO NTT DOCOMO, INC., JP
-131178  | EZECOM-AS-AP EZECOM CO., LTD., KH
-17976   | CAMGSM-CELLCARD-AS-AP CAMGSM Company Ltd, KH
-38623   | VIETTELCAMBODIA-AS-AP ISPIXP IN CAMBODIA WITH THE BEST VERVICE IN THERE., KH
-38901   | EZECOM-AS-AP EZECOM CO., LTD., KH
-45498   | SMART-AXIATA-KH SMART AXIATA Co., Ltd., KH
-10226   | ETL-IX-AS-AP ETL Company Limited, LA
-131267  | UNITEL-LA Star Telecom, LA
-132513  | SKYTELLAO-AS-AP Sky Telecom State Company, LA
-24337   | SKYTELECOM-AS-AP SkytelecomTransit provider and ISP in Vientiene., LA
-9873    | TELECOM-LA-AS-AP Lao Telecom Communication, LTC, LA
-132167  | OML-MM OOREDOO MYANMAR, MM
-133385  | ATOMMYANMAR-AS-AP Atom Myanmar Limited, MM
-136255  | TIMCL-AS-AP Telecom International Myanmar Co., Ltd, MM
-58952   | FRONTIIRCOLTD-MM Frontiir Co. Ltd, MM
-9988    | MPT-AP Myanma Posts and Telecommunications, MM
-38466   | UMOBILE-AS-AP U Mobile Sdn Bhd, MY
-4788    | TTSSB-MY TM TECHNOLOGY SERVICES SDN. BHD., MY
-4818    | DIGIIX-AP DiGi Telecommunications Sdn. Bhd., MY
-9534    | MAXIS-AS1-AP Binariang Berhad, MY
-9930    | TTNET-MY TIME dotCom Berhad No. 14, Jalan Majistret U126 Hicom Glenmarie Industrial Park 40150 Shah Alam Selangor, Malaysia, MY
-20940   | AKAMAI-ASN1, NL
-10139   | SMARTBRO-PH-AP Smart Broadband, Inc., PH
-132199  | GLOBE-MOBILE-5TH-GEN-AS Globe Telecom Inc., PH
-17639   | CONVERGE-AS Converge ICT Solutions Inc., PH
-4775    | GLOBE-TELECOM-AS Globe Telecoms, PH
-9299    | IPG-AS-AP Philippine Long Distance Telephone Company, PH
-131445  | AIS3G-2100-AS-AP Advance Wireless Network, TH
-132280  | SYMPHONY-AP-TH Symphony Communication Thailand PCL., TH
-133481  | AIS-FIBRE-AS-AP AIS Fibre, TH
-23969   | TOT-NET TOT Public Company Limited, TH
-24378   | ENGTAC-AS-TH-AP Total Access Communication PLC., TH
-45629   | JASTEL-NETWORK-TH-AP JasTel Network International Gateway, TH
-327885  | Viettel-Tanzania, TZ
-33765   | TTCLDATA, TZ
-36908   | VTL-ASN, TZ
-37035   | MIC-AS, TZ
-37133   | airtel-tz-as, TZ
-30598   | CCL-ASN, US
-131429  | MOBIFONE-AS-VN MOBIFONE Corporation, VN
-18403   | FPT-AS-AP FPT Telecom Company, VN
-45543   | SCTV-AS-VN SaiGon Tourist cable Televition Company, VN
-45899   | VNPT-AS-VN VNPT Corp, VN
-7552    | VIETEL-AS-AP Viettel Group, VN
