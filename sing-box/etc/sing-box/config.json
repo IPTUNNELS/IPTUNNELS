@@ -1,72 +1,94 @@
 {
-  "log":{
-    "level":"debug",
-    "output":"/tmp/box.log",
-    "timestamp":true
+  "log": {
+    "level": "debug",
+    "output": "/tmp/box.log",
+    "timestamp": true
   },
-  "experimental":{
-    "cache_file":{
+  "experimental": {
+    "cache_file": {
       "enabled": true,
-      "path": "/etc/sing-box/cache.db",
-      "store_rdrc": true
+      "path": "/etc/sing-box/cache.db"
     },
-    "clash_api":{
-      "external_controller":"[::]:9090",
-      "external_ui":"/tmp/ui",
-      "external_ui_download_url":"https://github.com/MetaCubeX/metacubexd/archive/gh-pages.zip"
+    "clash_api": {
+      "external_controller": "[::]:9090",
+      "access_control_allow_origin": [
+        "http://192.168.1.1",
+        "http://board.zash.run.place",
+        "https://board.zash.run.place",
+        "http://yacd.haishan.me",
+        "https://metacubexd.pages.dev",
+        "https://metacubex.github.io/metacubexd",
+        "https://yacd-meta-taamarin.vercel.app"
+      ],
+      "access_control_allow_private_network": true
     }
   },
-  "dns":{
-    "servers":[
+  "dns": {
+    "servers": [
       {
-        "tag":"system-dns",
-        "address":"local",
-        "detour":"direct-out"
+        "tag": "Latency-dns",
+        "address": "9.9.9.9",
+        "detour": "Latency"
       },
       {
-        "tag":"Internet-dns",
-        "address":"9.9.9.9",
-        "detour":"Internet"
+        "tag": "Internet-dns",
+        "address": "1.1.1.1",
+        "detour": "Internet"
       },
       {
-        "tag":"Latency-dns",
-        "address":"9.9.9.9",
-        "detour":"Latency"
+        "tag": "Latency-ID-dns",
+        "address": "1.0.0.1",
+        "detour": "Latency-ID"
       },
       {
-        "tag":"Region-dns",
-        "address":"9.9.9.9",
-        "detour":"Region"
+        "tag": "Latency-SG-dns",
+        "address": "8.8.4.4",
+        "detour": "Latency-SG"
       },
       {
-        "tag":"GAME-dns",
-        "address":"9.9.9.9",
-        "detour":"GAME"
+        "tag": "Region-dns",
+        "address": "8.8.8.8",
+        "detour": "Region"
       },
       {
-        "tag":"block-dns",
-        "address":"rcode://refused"
+        "tag": "GAME-dns",
+        "address": "208.67.222.222",
+        "detour": "GAME"
+      },
+      {
+        "tag": "wifi-dns",
+        "address": "1.1.1.1",
+        "detour": "wifi"
+      },
+      {
+        "tag": "system-dns",
+        "address": "1.1.1.1",
+        "detour": "direct-out"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
       }
     ],
-    "rules":[
+    "rules": [
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-malicious",
           "geoip-malicious"
         ],
-        "server":"block-dns",
+        "server": "block-dns",
         "disable_cache": true
       },
       {
-        "server":"block-dns",
-        "type":"logical",
-        "mode":"and",
-        "rules":[
+        "server": "block-dns",
+        "type": "logical",
+        "mode": "and",
+        "rules": [
           {
-            "network":"udp"
+            "network": "udp"
           },
           {
-            "port":443
+            "port": 443
           }
         ]
       },
@@ -74,39 +96,61 @@
         "domain_suffix": [
           ".lan"
         ],
-        "server":"system-dns"
+        "server": "system-dns"
       },
       {
-        "outbound":"Latency",
-        "server":"Latency-dns"
+        "rule_set": [
+          "geosite-rule-doh"
+        ],
+        "server": "block-dns",
+        "disable_cache": true
       },
       {
-        "outbound":"Region",
-        "server":"Region-dns"
+        "outbound": "Latency",
+        "server": "Latency-dns"
       },
       {
-        "rule_set":[
+        "outbound": "Latency-ID",
+        "server": "Latency-ID-dns"
+      },
+      {
+        "outbound": "Latency-SG",
+        "server": "Latency-SG-dns"
+      },
+      {
+        "outbound": "wifi",
+        "server": "wifi-dns"
+      },
+      {
+        "outbound": "Region",
+        "server": "Region-dns"
+      },
+      {
+        "rule_set": [
+          "geosite-rule-speedtest"
+        ],
+        "server": "Internet-dns"
+      },
+      {
+        "rule_set": [
           "geosite-youtube"
         ],
-        "server":"Region-dns",
-        "rewrite_ttl": 10
+        "server": "Region-dns"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-google"
         ],
-        "server":"Internet-dns",
-        "rewrite_ttl": 10
+        "server": "Internet-dns"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-whatsapp"
         ],
-        "server":"Region-dns",
-        "rewrite_ttl": 10
+        "server": "Region-dns"
       },
       {
-        "port":[
+        "port": [
           3478,
           4244,
           5222,
@@ -116,110 +160,165 @@
           50318,
           59234
         ],
-        "rule_set":[
+        "rule_set": [
           "geoip-facebook"
         ],
-        "server":"Region-dns",
-        "rewrite_ttl": 10
+        "server": "Region-dns"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-rule-indo",
           "geosite-bank-id"
         ],
-        "server":"Region-dns",
-        "rewrite_ttl": 10
+        "server": "Region-dns"
       },
       {
-        "type":"logical",
-        "mode":"and",
-        "rules":[
+        "type": "logical",
+        "mode": "and",
+        "rules": [
           {
-            "rule_set":[
+            "rule_set": [
               "geoip-id",
               "geoip-geoid"
             ]
           },
           {
-            "rule_set":[
+            "rule_set": [
               "commonports"
             ]
           }
         ],
-        "server":"Region-dns",
-        "rewrite_ttl": 10
+        "server": "Region-dns"
       },
       {
-        "outbound":"Internet",
-        "rule_set":[
+        "outbound": "Internet",
+        "rule_set": [
           "geosite-google-ads"
         ],
-        "server":"Internet-dns",
-        "rewrite_ttl": 10
+        "server": "Internet-dns"
       },
       {
-        "rule_set":[
-          "commonports"
+        "outbound": "GAME",
+        "server": "GAME-dns"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA",
+          "CNAME",
+          "MX",
+          "NS",
+          "SOA",
+          "OPT",
+          "HTTPS",
+          "SVCB"
         ],
-        "invert":true,
-        "server":"GAME-dns"
+        "invert": true,
+        "server": "GAME-dns"
       },
       {
-        "outbound":"GAME",
-        "server":"GAME-dns"
+        "outbound": "Internet",
+        "server": "Internet-dns"
       },
       {
-        "outbound":"any",
-        "server":"system-dns"
+        "outbound": "any",
+        "server": "system-dns"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA",
+          "CNAME",
+          "MX",
+          "NS",
+          "SOA",
+          "OPT",
+          "HTTPS",
+          "SVCB"
+        ],
+        "server": "Internet-dns"
       }
     ],
-    "final":"Internet-dns",
-    "independent_cache":true
+    "final": "Internet-dns",
+    "strategy": "prefer_ipv4",
+    "reverse_mapping": true,
+    "independent_cache": true
   },
-  "inbounds":[
+  "inbounds": [
     {
-      "type":"tproxy",
-      "tag":"tproxy-in",
-      "listen":"::",
-      "listen_port":10105,
+      "listen": "::",
+      "listen_port": 5353,
+      "override_address": "8.8.8.8",
+      "override_port": 53,
+      "tag": "dns-in-1",
+      "type": "direct"
+    },
+    {
+      "listen": "::",
+      "listen_port": 5454,
+      "override_address": "1.1.1.1",
+      "override_port": 53,
+      "tag": "dns-in-2",
+      "type": "direct"
+    },
+    {
+      "listen": "::",
+      "listen_port": 5656,
+      "override_address": "9.9.9.9",
+      "override_port": 53,
+      "tag": "dns-in-3",
+      "type": "direct"
+    },
+    {
+      "listen": "::",
+      "listen_port": 5757,
+      "override_address": "208.67.222.222",
+      "override_port": 53,
+      "tag": "dns-in-4",
+      "type": "direct"
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 10808,
       "udp_fragment": true,
-      "sniff":true,
-      "sniff_override_destination":false
+      "domain_strategy": "prefer_ipv4",
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 10105,
+      "udp_fragment": true,
+      "domain_strategy": "prefer_ipv4",
+      "sniff": true,
+      "sniff_override_destination": true
     }
   ],
-  "outbounds":[
+  "outbounds": [
     {
-      "type":"direct",
-      "tag":"direct-out"
+      "type": "direct",
+      "tag": "direct-out"
     },
     {
-      "type":"block",
-      "tag":"block-out"
+      "type": "block",
+      "tag": "block-out"
     },
     {
-      "type":"dns",
-      "tag":"dns-out"
+      "type": "dns",
+      "tag": "dns-out"
     },
     {
-      "type":"selector",
-      "tag":"Internet",
-      "outbounds":[
-        "Trojan-WS-HTTPS-CDN",
-        "Vmess-WS-HTTPS-CDN",
-        "Vless-WS-HTTPS-CDN",
-        "Trojan-UPGRADE-HTTPS-CDN",
-        "Vmess-UPGRADE-HTTPS-CDN",
-        "Vless-UPGRADE-HTTPS-CDN",
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Latency-SG",
+        "Latency-ID",
+        "Latency",
         "Region",
-        "Latency"
-      ],
-      "default":"Latency",
-      "interrupt_exist_connections":true
-    },
-    {
-      "type":"urltest",
-      "tag":"Latency",
-      "outbounds":[
         "Trojan-WS-HTTPS-CDN",
         "Vmess-WS-HTTPS-CDN",
         "Vless-WS-HTTPS-CDN",
@@ -227,69 +326,110 @@
         "Vmess-UPGRADE-HTTPS-CDN",
         "Vless-UPGRADE-HTTPS-CDN"
       ],
-      "url":"https://www.gstatic.com/generate_204",
-      "interval":"1m"
+      "default": "Latency",
+      "interrupt_exist_connections": true
     },
     {
-      "type":"selector",
-      "tag":"Region",
-      "outbounds":[
+      "type": "urltest",
+      "tag": "Latency-ID",
+      "outbounds": [
+        "Trojan-WS-HTTPS-CDN",
+        "Vmess-WS-HTTPS-CDN",
+        "Vless-WS-HTTPS-CDN"
+      ],
+      "url": "https://www.youtube.com/generate_204",
+      "interval": "1m"
+    },
+    {
+      "type": "urltest",
+      "tag": "Latency-SG",
+      "outbounds": [
         "Trojan-UPGRADE-HTTPS-CDN",
         "Vmess-UPGRADE-HTTPS-CDN",
-        "Vless-UPGRADE-HTTPS-CDN",
-        "Latency"
+        "Vless-UPGRADE-HTTPS-CDN"
       ],
-      "default":"Trojan-UPGRADE-HTTPS-CDN",
-      "interrupt_exist_connections":true
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "1m"
     },
     {
-      "type":"selector",
-      "tag":"Remote Server",
-      "outbounds":[
-        "Region",
-        "Latency",
-        "Internet"
-      ],
-      "interrupt_exist_connections":true
-    },
-    {
-      "type":"selector",
-      "tag":"GAME",
-      "outbounds":[
+      "type": "urltest",
+      "tag": "Latency",
+      "outbounds": [
         "Trojan-WS-HTTPS-CDN",
         "Vmess-WS-HTTPS-CDN",
         "Vless-WS-HTTPS-CDN",
         "Trojan-UPGRADE-HTTPS-CDN",
         "Vmess-UPGRADE-HTTPS-CDN",
-        "Vless-UPGRADE-HTTPS-CDN",
+        "Vless-UPGRADE-HTTPS-CDN"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "1m"
+    },
+    {
+      "type": "selector",
+      "tag": "Region",
+      "outbounds": [
+        "Latency-ID",
+        "Latency-SG",
+        "Latency",
+        "Trojan-WS-HTTPS-CDN",
+        "Vmess-WS-HTTPS-CDN",
+        "Vless-WS-HTTPS-CDN"
+      ],
+      "default": "Latency-ID",
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "Remote Server",
+      "outbounds": [
         "Region",
-        "Latency"
+        "Latency-ID",
+        "Latency-SG",
+        "Latency",
+        "Internet"
       ],
-      "default":"Latency",
-      "interrupt_exist_connections":true
+      "interrupt_exist_connections": true
     },
     {
-      "type":"selector",
-      "tag":"Selection ADs",
-      "outbounds":[
+      "type": "selector",
+      "tag": "GAME",
+      "outbounds": [
+        "Latency",
+        "Latency-ID",
+        "Latency-SG",
+        "Trojan-WS-HTTPS-CDN",
+        "Vmess-WS-HTTPS-CDN",
+        "Vless-WS-HTTPS-CDN",
+        "Trojan-UPGRADE-HTTPS-CDN",
+        "Vmess-UPGRADE-HTTPS-CDN",
+        "Vless-UPGRADE-HTTPS-CDN"
+      ],
+      "default": "Latency",
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "Selection ADs",
+      "outbounds": [
         "block-out",
         "Internet"
       ],
-      "interrupt_exist_connections":true
+      "interrupt_exist_connections": true
     },
     {
-      "type":"selector",
-      "tag":"Selection P0rn",
-      "outbounds":[
+      "type": "selector",
+      "tag": "Selection P0rn",
+      "outbounds": [
         "block-out",
         "Internet"
       ],
-      "interrupt_exist_connections":true
+      "interrupt_exist_connections": true
     },
     {
       "type": "trojan",
       "tag": "Trojan-WS-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -311,7 +451,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-trojan-ws-pm-telegram-at-synricha",
+        "path": "/cdn-trojan-ws/buy-trojan-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -320,7 +460,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-WS-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -344,7 +484,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vmess-ws-pm-telegram-at-synricha",
+        "path": "/cdn-vmess-ws/buy-vmess-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -353,7 +493,7 @@
     {
       "type": "vless",
       "tag": "Vless-WS-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -375,7 +515,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "path": "/cdn-vless-ws/buy-vless-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -385,7 +525,7 @@
     {
       "type": "trojan",
       "tag": "Trojan-UPGRADE-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -408,7 +548,7 @@
       "transport": {
         "type": "httpupgrade",
         "host": "IPTUNNELS-SERVER",
-        "path": "/buy-trojan-upgrade-pm-telegram-at-synricha",
+        "path": "/cdn-trojan-upgrade/buy-trojan-upgrade-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -417,7 +557,7 @@
     {
       "type": "vmess",
       "tag": "Vmess-UPGRADE-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -442,7 +582,7 @@
       "transport": {
         "type": "httpupgrade",
         "host": "IPTUNNELS-SERVER",
-        "path": "/buy-vmess-upgrade-pm-telegram-at-synricha",
+        "path": "/cdn-vmess-upgrade/buy-vmess-upgrade-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -451,7 +591,7 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTPS-CDN",
-      "routing_mark":666,
+      "routing_mark": 666,
       "detour": "direct-out",
       "domain_strategy": "prefer_ipv6",
       "fallback_delay": "200ms",
@@ -474,7 +614,7 @@
       "transport": {
         "type": "httpupgrade",
         "host": "IPTUNNELS-SERVER",
-        "path": "/buy-vless-upgrade-pm-telegram-at-synricha",
+        "path": "/cdn-vless-upgrade/buy-vless-upgrade-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
@@ -482,94 +622,117 @@
       "packet_encoding": "xudp"
     }
   ],
-  "route":{
-    "rules":[
+  "route": {
+    "rules": [
       {
         "type": "logical",
         "mode": "and",
         "rules": [
           {
-            "inbound":[
-              "tproxy-in"
+            "inbound": [
+              "tproxy-in",
+              "mixed-in"
             ]
           },
           {
-            "port": 53,
-            "network":"udp"
+            "port": [
+              53
+            ]
           }
         ],
-        "outbound":"dns-out"
+        "outbound": "dns-out"
       },
       {
-        "protocol":"dns",
-        "outbound":"dns-out"
+        "inbound": [
+          "dns-in-1",
+          "dns-in-2",
+          "dns-in-3",
+          "dns-in-4"
+        ],
+        "outbound": "dns-out"
       },
       {
-        "outbound":"block-out",
-        "type":"logical",
-        "mode":"or",
-        "rules":[
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "outbound": "block-out",
+        "type": "logical",
+        "mode": "or",
+        "rules": [
           {
-            "port":[
+            "port": [
               853
             ]
           },
           {
-            "network":"udp",
-            "port":443
+            "network": "udp",
+            "port": 443
           }
         ]
       },
       {
-        "port":22,
-        "outbound":"Remote Server"
+        "port": 22,
+        "outbound": "Remote Server"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-malicious",
           "geoip-malicious"
         ],
-        "outbound":"block-out"
+        "outbound": "block-out"
       },
       {
-        "rule_set":[
+        "rule_set": [
+          "geosite-rule-doh"
+        ],
+        "outbound": "block-out"
+      },
+      {
+        "rule_set": [
           "geosite-google-ads"
         ],
-        "outbound":"Internet"
+        "outbound": "Internet"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-oisd-full"
         ],
-        "outbound":"Selection ADs"
+        "outbound": "Selection ADs"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-category-porn",
           "geosite-oisd-nsfw"
         ],
-        "outbound":"Selection P0rn"
+        "outbound": "Selection P0rn"
       },
       {
-        "rule_set":[
+        "rule_set": [
+          "geosite-rule-speedtest"
+        ],
+        "outbound": "Internet"
+      },
+      {
+        "rule_set": [
           "geosite-youtube"
         ],
-        "outbound":"Region"
+        "outbound": "Region"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-google"
         ],
-        "outbound":"Internet"
+        "outbound": "Internet"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-whatsapp"
         ],
-        "outbound":"Region"
+        "outbound": "Region"
       },
       {
-        "port":[
+        "port": [
           3478,
           4244,
           5222,
@@ -579,192 +742,144 @@
           50318,
           59234
         ],
-        "rule_set":[
+        "rule_set": [
           "geoip-facebook"
         ],
-        "outbound":"Region"
+        "outbound": "Region"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "geosite-rule-indo",
           "geosite-bank-id"
         ],
-        "outbound":"Region"
+        "outbound": "Region"
       },
       {
-        "type":"logical",
-        "mode":"and",
-        "rules":[
+        "type": "logical",
+        "mode": "and",
+        "rules": [
           {
-            "rule_set":[
+            "rule_set": [
               "geoip-id",
               "geoip-geoid"
             ]
           },
           {
-            "rule_set":[
+            "rule_set": [
               "commonports"
             ]
           }
         ],
-        "outbound":"Region"
+        "outbound": "Region"
       },
       {
-        "rule_set":[
+        "rule_set": [
           "commonports"
         ],
-        "outbound":"Internet"
-      },
-      {
-        "rule_set":[
-          "commonports"
-        ],
-        "invert":true,
-        "outbound":"GAME"
+        "invert": true,
+        "outbound": "GAME"
       }
     ],
-    "rule_set":[
+    "rule_set": [
       {
-        "type":"remote",
-        "tag":"geosite-youtube",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-youtube.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-youtube",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-youtube.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-google",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-google.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-google",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-google.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-whatsapp",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-whatsapp.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-whatsapp",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-whatsapp.srs"
       },
       {
-        "type":"remote",
-        "tag":"geoip-facebook",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-facebook.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geoip-facebook",
+        "format": "binary",
+        "path": "/etc/sing-box/geoip-facebook.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-bank-id",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-bank-id.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-bank-id",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-bank-id.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-rule-indo",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-rule-indo.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-rule-indo",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-rule-indo.srs"
       },
       {
-        "type":"remote",
-        "tag":"geoip-id",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-id.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geoip-id",
+        "format": "binary",
+        "path": "/etc/sing-box/geoip-id.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-doh",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-rule-doh.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-rule-doh",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-rule-doh.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-malicious",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-rule-malicious.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-malicious",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-rule-malicious.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-spotify",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-spotify.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-google-ads",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-google-ads.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-google-ads",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-google-ads.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-oisd-full",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-oisd-full.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-oisd-full",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-oisd-full.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-oisd-nsfw",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-oisd-nsfw.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-oisd-nsfw",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-oisd-nsfw.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geosite-category-porn",
+        "format": "binary",
+        "path": "/etc/sing-box/geosite-category-porn.srs"
       },
       {
-        "type":"remote",
-        "tag":"geosite-category-porn",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geosite/geosite-category-porn.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
-      },
-      {
-        "type":"remote",
-        "tag":"geoip-malicious",
-        "format":"binary",
-        "url":"https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-malicious.srs",
-        "update_interval":"1d",
-        "download_detour":"Latency"
+        "type": "local",
+        "tag": "geoip-malicious",
+        "format": "binary",
+        "path": "/etc/sing-box/geoip-malicious.srs"
       },
       {
         "type": "remote",
         "tag": "geoip-geoid",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/malikshi/sing-box-geo@rule-set-geoip/geoip-geoid.srs",
-        "update_interval": "1d",
-        "download_detour":"Latency"
+        "path": "/etc/sing-box/geoip-geoid.srs"
       },
       {
-        "type":"remote",
-        "tag":"commonports",
+        "type": "local",
+        "tag": "commonports",
         "format": "source",
-        "url": "https://cdn.jsdelivr.net/gh/IPTUNNELS/IPTUNNELS@main/sing-box/etc/sing-box/commonports.json",
-        "update_interval": "30d",
-        "download_detour":"Latency"
+        "path": "/etc/sing-box/commonports.json"
       }
     ],
-    "auto_detect_interface":true,
-    "final":"Internet",
+    "auto_detect_interface": true,
+    "final": "Internet",
     "default_mark": 666
   }
 }
-
-
