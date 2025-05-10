@@ -20,21 +20,15 @@
           "short_id": "IPTUNNELS-SHORT-ID"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms"
-    },
-    {
-      "type": "block",
-      "tag": "block-out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
+      "tag": "direct-out"
     }
   ]
 }

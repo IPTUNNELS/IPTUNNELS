@@ -1,47 +1,37 @@
 {
   "log": {
-    "level": "fatal",
+    "level": "info",
     "timestamp": true
   },
   "dns": {
     "servers": [
       {
         "tag": "Internet-dns",
-        "address": "9.9.9.9",
-        "address_strategy": "prefer_ipv6",
-        "strategy": "prefer_ipv6",
+        "type": "udp",
+        "server": "9.9.9.9",
+        "server_port": 53,
         "detour": "Internet"
       },
       {
         "tag": "direct-dns",
-        "address": "local",
-        "address_strategy": "prefer_ipv6",
-        "strategy": "prefer_ipv6",
-        "detour": "direct-out"
+        "type": "udp",
+        "server": "local",
+        "server_port": 53
       },
       {
-        "tag":"block-dns",
-        "address":"rcode://refused"
-      },
-      {
-        "tag": "remote",
-        "address": "fakeip"
+        "type": "fakeip",
+        "tag": "remote-dns",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
       }
     ],
     "rules": [
       {
-        "outbound": "any",
-        "server": "direct-dns"
-      },
-      {
         "domain_suffix": [
           ".lan"
         ],
-        "server":"direct-dns"
-      },
-      {
-        "ip_is_private": true,
-        "server":"direct-dns"
+        "action": "route",
+        "server": "direct-dns"
       },
       {
         "type": "logical",
@@ -54,7 +44,8 @@
             "port": 443
           }
         ],
-        "server": "block-dns"
+        "action": "predefined",
+        "rcode": "NOERROR"
       },
       {
         "query_type": [
@@ -63,15 +54,10 @@
           "HTTPS",
           "SVCB"
         ],
-        "server": "remote"
+        "server": "remote-dns"
       }
     ],
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
-    },
-    "strategy": "prefer_ipv6",
+    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "experimental": {

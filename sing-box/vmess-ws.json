@@ -26,9 +26,6 @@
     {
       "type": "vmess",
       "tag": "Vmess-WS-HTTPS",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -49,18 +46,19 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vmess-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vmess-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "HOSTNAME-SNI"
         }
+      },
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
       }
     },
     {
       "type": "vmess",
       "tag": "Vmess-WS-HTTPS-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -81,18 +79,19 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vmess-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vmess-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
+      },
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
       }
     },
     {
       "type": "vmess",
       "tag": "Vmess-WS-HTTP",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -105,7 +104,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vmess-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vmess-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "HOSTNAME-SNI"
         }
@@ -114,9 +113,6 @@
     {
       "type": "vmess",
       "tag": "Vmess-WS-HTTP-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -129,25 +125,19 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vmess-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vmess-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
+      },
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
       }
     },
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms"
-    },
-    {
-      "type": "block",
-      "tag": "block-out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
+      "tag": "direct-out"
     }
   ]
 }

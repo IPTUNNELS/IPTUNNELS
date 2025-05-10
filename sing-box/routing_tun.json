@@ -1,31 +1,21 @@
 {
 "route": {
     "rules": [
-      {
-        "port": 53,
-        "outbound": "dns-out"
-      },
-      {
-        "ip_is_private": true,
-        "outbound":"direct-out"
-      },
-      {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "network": "udp"
-          },
-          {
-            "port": 443
-          }
-        ],
-        "outbound": "block-out"
-      }
+      {"inbound":"tun-in","action":"sniff","timeout":"5ms"},
+      {"action":"hijack-dns","type":"logical","mode":"and","rules":[{"ip_is_private":true},{"port":53}]},
+      {"action":"hijack-dns","protocol":"dns"},
+      {"action":"hijack-dns","port":53},
+      {"action":"route","outbound":"direct-out","ip_is_private": true},
+      {"action":"reject","method":"drop","type":"logical","mode":"and","rules":[{"network":"udp"},{"port":443}]}
     ],
     "rule_set":[],
     "auto_detect_interface": true,
     "override_android_vpn": true,
-    "final": "Internet"
+    "final": "Internet",
+    "default_domain_resolver": {
+      "server": "direct-dns",
+      "strategy": "prefer_ipv4",
+      "rewrite_tll": 60
+    }
   }
 }

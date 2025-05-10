@@ -26,9 +26,6 @@
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTPS",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -48,19 +45,20 @@
       "transport": {
         "type": "httpupgrade",
         "host": "HOSTNAME-SNI",
-        "path": "/buy-vless-upgrade-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-upgrade-pm-telegram-at-synricha",
         "headers": {
           "Host": "HOSTNAME-SNI"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTPS-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -80,19 +78,20 @@
       "transport": {
         "type": "httpupgrade",
         "host": "IPTUNNELS-SERVER",
-        "path": "/buy-vless-upgrade-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-upgrade-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTP",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -104,16 +103,17 @@
       "transport": {
         "type": "httpupgrade",
         "host": "HOSTNAME-SNI",
-        "path": "/buy-vless-upgrade-pm-telegram-at-synricha"
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-upgrade-pm-telegram-at-synricha"
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-UPGRADE-HTTP-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -125,23 +125,17 @@
       "transport": {
         "type": "httpupgrade",
         "host": "IPTUNNELS-SERVER",
-        "path": "/buy-vless-upgrade-pm-telegram-at-synricha"
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-upgrade-pm-telegram-at-synricha"
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms"
-    },
-    {
-      "type": "block",
-      "tag": "block-out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
+      "tag": "direct-out"
     }
   ]
 }

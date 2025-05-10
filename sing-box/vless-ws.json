@@ -26,9 +26,6 @@
     {
       "type": "vless",
       "tag": "Vless-WS-HTTPS",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -47,19 +44,20 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "HOSTNAME-SNI"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-WS-HTTPS-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 443,
       "uuid": "IPTUNNELS-UUID",
@@ -78,19 +76,20 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-WS-HTTP",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -101,19 +100,20 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "HOSTNAME-SNI"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "vless",
       "tag": "Vless-WS-HTTP-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 80,
       "uuid": "IPTUNNELS-UUID",
@@ -124,26 +124,20 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/buy-vless-ws-pm-telegram-at-synricha",
+        "path": "/username-atau-uuid-atau-password-akun/buy-vless-ws-pm-telegram-at-synricha",
         "headers": {
           "Host": "IPTUNNELS-SERVER"
         }
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": "xudp",
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
+      }
     },
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms"
-    },
-    {
-      "type": "block",
-      "tag": "block-out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
+      "tag": "direct-out"
     }
   ]
 }

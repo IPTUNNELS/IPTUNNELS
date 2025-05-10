@@ -22,9 +22,6 @@
     {
       "type": "trojan",
       "tag": "Trojan-GRPC-HTTPS",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "IPTUNNELS-SERVER",
       "server_port": 443,
       "password": "IPTUNNELS-PASSWORD",
@@ -46,14 +43,15 @@
         "service_name": "buy-trojan-grpc-pm-telegram-at-synricha",
         "idle_timeout": "15s",
         "ping_timeout": "15s"
+      },
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
       }
     },
     {
       "type": "trojan",
       "tag": "Trojan-GRPC-HTTPS-CDN",
-      "detour": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms",
       "server": "CDN-SERVER",
       "server_port": 443,
       "password": "IPTUNNELS-PASSWORD",
@@ -75,21 +73,15 @@
         "service_name": "buy-trojan-grpc-pm-telegram-at-synricha",
         "idle_timeout": "15s",
         "ping_timeout": "15s"
+      },
+      "domain_resolver": {
+        "server": "direct-dns",
+        "strategy": "prefer_ipv4"
       }
     },
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6",
-      "fallback_delay": "300ms"
-    },
-    {
-      "type": "block",
-      "tag": "block-out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
+      "tag": "direct-out"
     }
   ]
 }

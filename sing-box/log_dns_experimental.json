@@ -1,27 +1,22 @@
 {
   "log": {
-    "level": "fatal",
+    "level": "info",
     "timestamp": true
   },
   "dns": {
     "servers": [
       {
         "tag": "Internet-dns",
-        "address": "9.9.9.9",
-        "address_strategy": "prefer_ipv6",
-        "strategy": "prefer_ipv6",
+        "type": "udp",
+        "server": "9.9.9.9",
+        "server_port": 53,
         "detour": "Internet"
       },
       {
         "tag": "direct-dns",
-        "address": "local",
-        "address_strategy": "prefer_ipv6",
-        "strategy": "prefer_ipv6",
-        "detour": "direct-out"
-      },
-      {
-        "tag":"block-dns",
-        "address":"rcode://refused"
+        "type": "udp",
+        "server": "local",
+        "server_port": 53
       }
     ],
     "rules": [
@@ -29,11 +24,8 @@
         "domain_suffix": [
           ".lan"
         ],
-        "server":"direct-dns"
-      },
-      {
-        "ip_is_private": true,
-        "server":"direct-dns"
+        "action": "route",
+        "server": "direct-dns"
       },
       {
         "type": "logical",
@@ -46,14 +38,12 @@
             "port": 443
           }
         ],
-        "server": "block-dns"
-      },
-      {
-        "outbound": "any",
-        "server": "direct-dns"
+        "action": "predefined",
+        "rcode": "NOERROR"
       }
     ],
-    "strategy": "prefer_ipv6",
+    "final": "Internet-dns",
+    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "experimental": {

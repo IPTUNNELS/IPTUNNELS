@@ -25,6 +25,11 @@
     ],
     "rule_set":[],
     "auto_detect_interface":true,
-    "final":"Internet"
+    "final":"Internet",
+    "default_domain_resolver": {
+      "server": "direct-dns",
+      "strategy": "prefer_ipv4",
+      "rewrite_tll": 60
+    }
   }
 }
