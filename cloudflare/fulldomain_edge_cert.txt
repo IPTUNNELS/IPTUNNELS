@@ -20,7 +20,7 @@ bimbel.ruangguru.com
 blog.ruangguru.com
 roboguru.ruangguru.com
 io.ruangguru.com
-spotify.com
+open.spotify.com
 investors.spotify.com
 investor.fb.com
 cache.netflix.com
