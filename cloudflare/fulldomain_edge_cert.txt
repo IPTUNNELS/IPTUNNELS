@@ -49,3 +49,6 @@ cf.shopee.co.id
 s.lazada.co.id
 store.linefriends.com
 collection.linefriends.com
+api24-normal.tiktokv.com
+api24-normal-useast1a.tiktokv.com
+api24-normal-alisg.tiktokv.com
