@@ -14,9 +14,8 @@
       },
       {
         "tag": "direct-dns",
-        "type": "udp",
-        "server": "local",
-        "server_port": 53
+        "type": "local",
+        "prefer_go": false
       },
       {
         "type": "fakeip",
