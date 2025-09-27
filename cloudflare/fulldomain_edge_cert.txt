@@ -12,6 +12,7 @@ img.email1.vidio.com
 img.email2.vidio.com
 img.email3.vidio.com
 support.zoom.us
+source.zoom.us
 zoomgov
 blog.webex.com
 edu.ruangguru.com
@@ -29,6 +30,7 @@ creativeservices.netflix.com
 help.viu.com
 www.udemy.com
 info.udemy.com
+teaching.udemy.com
 zaintest.vuclip.com
 space.byu.id
 grabacademyportal.grab.com
