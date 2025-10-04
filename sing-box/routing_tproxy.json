@@ -1,27 +1,10 @@
 {
   "route": {
     "rules": [
-      {
-        "port": 53,
-        "outbound": "dns-out"
-      },
-      {
-        "ip_is_private": true,
-        "outbound":"direct-out"
-      },
-      {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "network": "udp"
-          },
-          {
-            "port": 443
-          }
-        ],
-        "outbound": "block-out"
-      }
+      {"inbound":"tproxy-in","action":"resolve","strategy":"prefer_ipv4"},
+      {"inbound":"tproxy-in","action":"sniff","timeout":"5ms"},
+      {"action":"route","outbound":"direct-out","ip_is_private": true},
+      {"action":"reject","method":"drop","type":"logical","mode":"and","rules":[{"network":"udp"},{"port":443}]}
     ],
     "rule_set":[],
     "auto_detect_interface":true,
