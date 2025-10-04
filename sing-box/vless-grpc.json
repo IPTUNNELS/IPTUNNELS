@@ -2,7 +2,7 @@
   "outbounds": [
     {
       "type": "selector",
-      "tag": "Internet",
+      "tag": "IPTUNNELS",
       "outbounds": [
         "Best Latency",
         "Vless-GRPC-HTTPS",

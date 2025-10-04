@@ -11,7 +11,7 @@
     "rule_set":[],
     "auto_detect_interface": true,
     "override_android_vpn": true,
-    "final": "Internet",
+    "final": "IPTUNNELS",
     "default_domain_resolver": {
       "server": "direct-dns",
       "strategy": "prefer_ipv4",
