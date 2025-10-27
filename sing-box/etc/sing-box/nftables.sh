@@ -18,8 +18,48 @@ BR_MAC=$(ip link show $LAN_BRIDGE | awk '/ether/ {print $2}')
 # RFC1918/ULA/link-local + doc ranges (expanded) + your modem subnet
 ReservedIP4='{ 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/3 }'
 ReservedIP6='{ ::/127, ::ffff:0:0:0/96, 64:ff9b::/96, 100::/64, 2001::/32, 2001:20::/28, 2001:db8::/32, 2002::/16, fc00::/7, fe80::/10, ff00::/8 }'
-# Bypass local LAN + modem mgmt subnet (edit if your LAN differs)
-CustomBypassIP='{ 10.0.8.0/24 }'
+# --- Auto-build CustomBypassIP ----------------------------------------------
+# Base LAN/modem management subnet you always want to bypass
+BASE_BYPASS_IPV4="" # You can put a static IP here like "10.0.8.0/24" if needed
+
+# Build a set like "{ 10.0.8.0/24, 192.168.11.0/24, ... }"
+buildCustomBypassIP() {
+    local list="$BASE_BYPASS_IPV4"
+
+    # Find all IPv4 default gateways
+    local gws gw net
+    gws="$(ip -4 route show default | awk '{for (i=1;i<=NF;i++) if ($i=="via") print $(i+1)}' | sort -u)"
+
+    for gw in $gws; do
+        if echo "$gw" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'; then
+            net="$(echo "$gw" | awk -F. '{printf "%d.%d.%d.0/24", $1,$2,$3}')"
+            
+            # Skip if the network is already in our list
+            case ",$list," in
+                *",$net,"*) continue ;;
+            esac
+
+            # If the list is empty, just add the network.
+            # Otherwise, add a comma before adding the new network.
+            if [ -z "$list" ]; then
+                list="$net"
+            else
+                list="$list, $net"
+            fi
+        fi
+    done
+    
+    # Return an empty set if no IPs are found, which is valid.
+    # Otherwise, return the formatted list.
+    if [ -z "$list" ]; then
+        echo "{}"
+    else
+        echo "{ $list }"
+    fi
+}
+
+CustomBypassIP="$(buildCustomBypassIP)"
+# -----------------------------------------------------------------------------
 
 clearFirewallRules() {
     # ip -f inet  rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
