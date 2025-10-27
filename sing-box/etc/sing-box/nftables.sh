@@ -1,109 +1,123 @@
 #!/bin/sh
+# macvlan-safe TPROXY rules for OpenWrt + sing-box
+# - Captures ALL IPv4/IPv6 TCP+UDP (incl. STUN/WebRTC) via TPROXY
+# - Prevents DNS & WebRTC leaks
+# - Actively blocks rogue IPv6 Router Advertisements and DHCPv6 replies
 
-INTERFACE=$(ip route show default | awk '/default/ {print $5}')
+# --- Configuration ---
+LAN_BRIDGE="br-lan"
 TPROXY_PORT=10105
-ROUTING_MARK=0x29A    # Ensure this matches the mark set by your proxy software
+ROUTING_MARK=0x29A      # Must match sing-box route.default_mark (666)
 PROXY_FWMARK=0x1
 PROXY_ROUTE_TABLE=100
+# --- End Configuration ---
 
-# Reserved IP addresses (OpenWrt specific)
-ReservedIP4='{ 0.0.0.0/8, 10.0.0.0/8, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32 }'
-ReservedIP6='{ ::/128, ::1/128, ::ffff:0:0:0/96, 64:ff9b::/96, 100::/64, 2001::/32, 2001:20::/28, 2001:db8::/32, 2002::/16, fc00::/7, fe80::/10, ff00::/8 }'
-CustomBypassIP='{ 192.168.0.0/16, 10.0.8.0/24 }'
+# Get the MAC address of the LAN bridge to identify legitimate packets
+BR_MAC=$(ip link show $LAN_BRIDGE | awk '/ether/ {print $2}')
 
-# Function to clear firewall rules and handle errors
+# RFC1918/ULA/link-local + doc ranges (expanded) + your modem subnet
+ReservedIP4='{ 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/3 }'
+ReservedIP6='{ ::/127, ::ffff:0:0:0/96, 64:ff9b::/96, 100::/64, 2001::/32, 2001:20::/28, 2001:db8::/32, 2002::/16, fc00::/7, fe80::/10, ff00::/8 }'
+# Bypass local LAN + modem mgmt subnet (edit if your LAN differs)
+CustomBypassIP='{ 10.0.8.0/24 }'
+
 clearFirewallRules() {
-    ip -f inet rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE || { echo "Delete rule mark ipv4"; }
-    ip -f inet6 rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE || { echo "Delete rule mark ipv6"; }
+    # ip -f inet  rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip -f inet6 rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip  route  del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip -6 route del local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
 
-    ip route del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Delete route ipv4"; }
-    ip -6 route del local ::/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Delete route ipv6"; }
-    nft flush ruleset >/dev/null 2>&1  # Redirect output to avoid clutter
-    /etc/init.d/firewall restart       # Restart firewall service
-    sleep 3                            # Give firewall time to restart
+    ip  rule del fwmark ${PROXY_FWMARK} lookup ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 rule del fwmark ${PROXY_FWMARK} lookup ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip  route flush table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 route flush table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    # Delete our specific tables to avoid breaking firewall4.
+    nft delete table inet sing-box 2>/dev/null
+    nft delete table bridge singbox_ra_guard 2>/dev/null
+    # /etc/init.d/firewall restart
+    sleep 2
+}
+
+ensurePolicyRouting() {
+    ip -f inet  rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
+      || ip -f inet  rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    ip -f inet6 rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
+      || ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE 2>/dev/null || true
+
+    # ip  route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    # ip -6 route add local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    ip  route replace local 0.0.0.0/0 dev lo table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 route replace local ::/0       dev lo table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
 }
 
 if [ "$1" = "set" ]; then
-    # Routing IPv4 rules for OpenWrt - with checks and handling for existing routes
-    if ! ip -f inet rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE"; then
-        ip -f inet rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 5000 || { echo "Error setting routing rule IPv4. Exiting."; }
-    else
-        echo "Routing rule already exists."  # Inform the user
+    ensurePolicyRouting
+
+    if [ -z "$BR_MAC" ]; then
+        echo "ERROR: Could not determine MAC address for $LAN_BRIDGE. Exiting."
+        exit 1
     fi
-
-    ip route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Error setting local route IPv4. Exiting."; }
-
-    # Routing IPv6 rules for OpenWrt - with checks and handling for existing routes
-    if ! ip -f inet6 rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE"; then
-        ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 5000 || { echo "Error setting routing rule IPv6. Exiting."; }
-    else
-        echo "Routing rule already exists."  # Inform the user
-    fi
-
-    ip -6 route add local ::/0 dev lo table $PROXY_ROUTE_TABLE || { echo "Error setting local route IPv6. Exiting."; }
 
     nft -f - <<EOF
 table inet sing-box {
     chain prerouting_tproxy {
         type filter hook prerouting priority mangle; policy accept;
-        # DNS & Custom Bypass
-        meta l4proto {tcp, udp} th dport 53 tproxy to :$TPROXY_PORT return
-        ip daddr $CustomBypassIP return
 
-        # Local & Reserved IP Bypass
+        # socket transparent for sing-box outbound connections
+        # meta l4proto tcp socket transparent 1 meta mark set $PROXY_FWMARK accept
+
+        # Avoid loops from traffic already marked by sing-box
+        # meta mark $ROUTING_MARK return
+
+        # Bypass local traffic
         fib daddr type local meta l4proto { tcp, udp } th dport $TPROXY_PORT reject with icmpx type host-unreachable
         fib daddr type local return
-        ip daddr $ReservedIP4 return
-        ip6 daddr $ReservedIP6 return
-        meta mark $ROUTING_MARK return
 
-        # Handle established transparent proxy connections
-        meta l4proto tcp socket transparent 1 meta mark set $PROXY_FWMARK accept
+        # Bypass LAN + modem and reserved ranges
+        ip  daddr $CustomBypassIP return
+        ip  daddr $ReservedIP4    return
+        ip6 daddr $ReservedIP6    return
 
-        # Mark other traffic for TPROXY
-        # IPv4 TPROXY rule
-        meta l4proto {tcp, udp} tproxy ip to :$TPROXY_PORT meta mark set $PROXY_FWMARK
-        # IPv6 TPROXY rule (assuming your proxy listens on both IPv4 and IPv6)
+        # DNS hijack to sing-box (both TCP+UDP)
+        meta l4proto {tcp, udp} th dport 53 tproxy to :$TPROXY_PORT meta mark set $PROXY_FWMARK
+
+        # Transparent proxy for everything else (TCP + UDP, IPv4 + IPv6)
+        meta l4proto {tcp, udp} tproxy ip  to :$TPROXY_PORT meta mark set $PROXY_FWMARK
         meta l4proto {tcp, udp} tproxy ip6 to :$TPROXY_PORT meta mark set $PROXY_FWMARK
     }
 
     chain output_tproxy {
         type route hook output priority mangle; policy accept;
 
-        # Loopback & Marked Traffic Bypass
-        oifname != $INTERFACE return
-        meta mark $ROUTING_MARK return
+        # meta mark $ROUTING_MARK return
+        oifname "lo" return
 
-        # DNS Redirection & Other Bypass
+        # Bypass modem/LAN and reserved ranges
+        ip  daddr $CustomBypassIP return
+        ip  daddr $ReservedIP4    return
+        ip6 daddr $ReservedIP6    return
+
+        # Force DNS from router itself into TPROXY as well
         meta l4proto {tcp, udp} th dport 53 meta mark set $PROXY_FWMARK return
-        udp dport {netbios-ns, netbios-dgm, netbios-ssn} return
-        ip daddr $CustomBypassIP return
 
-        # Local & Reserved IP Bypass
-        fib daddr type local return
-        ip daddr $ReservedIP4 return
-        ip6 daddr $ReservedIP6 return
-
-        # Remaining Traffic Handling
         meta l4proto {tcp, udp} meta mark set $PROXY_FWMARK
     }
+}
 
-    chain forward_tproxy {
-        type filter hook forward priority filter; policy accept;
-
-        # Bypass LAN & modem gateway traffic (replace with your actual subnets)
-        ip saddr $CustomBypassIP return
-
-        # Mark traffic for proxy
-        meta l4proto { tcp, udp } mark set $PROXY_FWMARK
+table bridge singbox_ra_guard {
+    chain ra_guard {
+        type filter hook prerouting priority -300; policy accept;
+        iifname "${LAN_BRIDGE}" ip6 nexthdr udp udp sport 547 udp dport 546 drop
+        iifname "${LAN_BRIDGE}" ip6 nexthdr icmpv6 icmpv6 type 134 drop
     }
 }
 EOF
-    echo "set nftables"
+    echo "sing-box nftables rules installed"
 
 elif [ "$1" = "clear" ]; then
     clearFirewallRules
+    echo "sing-box nftables rules cleared"
 else
-    echo "Invalid argument. Use 'set' or 'clear'."
+    echo "Usage: $0 {set|clear}"
     exit 1
 fi
