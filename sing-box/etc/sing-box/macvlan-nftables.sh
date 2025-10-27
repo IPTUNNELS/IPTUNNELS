@@ -16,16 +16,21 @@ PROXY_ROUTE_TABLE=100
 BR_MAC=$(ip link show $LAN_BRIDGE | awk '/ether/ {print $2}')
 
 # RFC1918/ULA/link-local + doc ranges (expanded) + your modem subnet
-ReservedIP4='{ 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32 }'
-ReservedIP6='{ ::/128, ::1/128, ::ffff:0:0:0/96, 64:ff9b::/96, 100::/64, 2001::/32, 2001:20::/28, 2001:db8::/32, 2002::/16, fc00::/7, fe80::/10, ff00::/8 }'
+ReservedIP4='{ 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/3 }'
+ReservedIP6='{ ::/127, ::ffff:0:0:0/96, 64:ff9b::/96, 100::/64, 2001::/32, 2001:20::/28, 2001:db8::/32, 2002::/16, fc00::/7, fe80::/10, ff00::/8 }'
 # Bypass local LAN + modem mgmt subnet (edit if your LAN differs)
-CustomBypassIP='{ 192.168.0.0/16, 10.0.8.0/24 }'
+CustomBypassIP='{ 10.0.8.0/24 }'
 
 clearFirewallRules() {
-    ip -f inet  rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
-    ip -f inet6 rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
-    ip  route  del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
-    ip -6 route del local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip -f inet  rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip -f inet6 rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip  route  del local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
+    # ip -6 route del local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null
+
+    ip  rule del fwmark ${PROXY_FWMARK} lookup ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 rule del fwmark ${PROXY_FWMARK} lookup ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip  route flush table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 route flush table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
     # Delete our specific tables to avoid breaking firewall4.
     nft delete table inet sing-box 2>/dev/null
     nft delete table bridge singbox_ra_guard 2>/dev/null
@@ -35,12 +40,14 @@ clearFirewallRules() {
 
 ensurePolicyRouting() {
     ip -f inet  rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
-      || ip -f inet  rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 100
+      || ip -f inet  rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE 2>/dev/null || true
     ip -f inet6 rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
-      || ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 100
+      || ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE 2>/dev/null || true
 
-    ip  route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
-    ip -6 route add local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    # ip  route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    # ip -6 route add local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
+    ip  route replace local 0.0.0.0/0 dev lo table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
+    ip -6 route replace local ::/0       dev lo table ${PROXY_ROUTE_TABLE} 2>/dev/null || true
 }
 
 if [ "$1" = "set" ]; then
