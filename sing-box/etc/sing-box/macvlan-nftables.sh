@@ -35,9 +35,9 @@ clearFirewallRules() {
 
 ensurePolicyRouting() {
     ip -f inet  rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
-      || ip -f inet  rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 5000
+      || ip -f inet  rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 100
     ip -f inet6 rule show | grep -q "fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE" \
-      || ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 5000
+      || ip -f inet6 rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE prio 100
 
     ip  route add local 0.0.0.0/0 dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
     ip -6 route add local ::/0      dev lo table $PROXY_ROUTE_TABLE 2>/dev/null || true
@@ -60,7 +60,7 @@ table inet sing-box {
         # meta l4proto tcp socket transparent 1 meta mark set $PROXY_FWMARK accept
 
         # Avoid loops from traffic already marked by sing-box
-        meta mark $ROUTING_MARK return
+        # meta mark $ROUTING_MARK return
 
         # Bypass local traffic
         fib daddr type local meta l4proto { tcp, udp } th dport $TPROXY_PORT reject with icmpx type host-unreachable
@@ -82,7 +82,7 @@ table inet sing-box {
     chain output_tproxy {
         type route hook output priority mangle; policy accept;
 
-        meta mark $ROUTING_MARK return
+        # meta mark $ROUTING_MARK return
         oifname "lo" return
 
         # Bypass modem/LAN and reserved ranges
@@ -98,20 +98,10 @@ table inet sing-box {
 }
 
 table bridge singbox_ra_guard {
-    chain prerouting {
+    chain ra_guard {
         type filter hook prerouting priority -300; policy accept;
-
-        # Drop ICMPv6 Router Advertisements (type 134) not sent by our bridge MAC
-        iifname "$LAN_BRIDGE" ether saddr != $BR_MAC ip6 nexthdr icmpv6 icmpv6 type 134 counter drop
-
-        # Drop DHCPv6 server replies (547->546) not sent by our bridge MAC
-        iifname "$LAN_BRIDGE" ether saddr != $BR_MAC ip6 nexthdr udp udp sport 547 udp dport 546 counter drop
-
-        iifname "br-lanmac0" ip6 nexthdr udp udp sport 547 udp dport 546 counter drop
-        iifname "br-lanmac0" ip6 nexthdr icmpv6 icmpv6 type 134 counter drop
-
-        iifname "br-lan" ip6 nexthdr udp udp sport 547 udp dport 546 counter drop
-        iifname "br-lan" ip6 nexthdr icmpv6 icmpv6 type 134 counter drop
+        iifname "${LAN_BRIDGE}" ip6 nexthdr udp udp sport 547 udp dport 546 drop
+        iifname "${LAN_BRIDGE}" ip6 nexthdr icmpv6 icmpv6 type 134 drop
     }
 }
 EOF
