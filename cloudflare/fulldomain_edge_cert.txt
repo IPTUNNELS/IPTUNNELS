@@ -48,6 +48,7 @@ dashboard.midtrans.com
 account-gopay.midtrans.com
 s.shopee.co.id
 cf.shopee.co.id
+cf.shopee.co.id.sea-sw.swiftserve.com
 s.lazada.co.id
 store.linefriends.com
 collection.linefriends.com
