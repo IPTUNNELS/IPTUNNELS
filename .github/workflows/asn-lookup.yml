@@ -1,0 +1,38 @@
+name: ASN Lookup
+
+on:
+  push:
+    paths:
+      - 'firewall/asn'
+      - 'firewall/asn-cdn'
+  workflow_dispatch:
+
+jobs:
+  generate-asn:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate ASN.txt
+        run: |
+          nc whois.cymru.com 43 < firewall/asn | grep -v "Bulk mode;" | awk '{print substr($0,length($0)-1) " " $0}' | sort -k1,1 | cut -d' ' -f2- > firewall/ASN.txt
+          cat firewall/ASN.txt
+
+      - name: Generate ASN-CDN-ACCESS.txt
+        run: |
+          nc whois.cymru.com 43 < firewall/asn-cdn | grep -v "Bulk mode;" | awk '{print substr($0,length($0)-1) " " $0}' | sort -k1,1 | cut -d' ' -f2- > firewall/ASN-CDN-ACCESS.txt
+          cat firewall/ASN-CDN-ACCESS.txt
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add firewall/ASN.txt firewall/ASN-CDN-ACCESS.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update ASN lookup files"
+            git push
+          fi
