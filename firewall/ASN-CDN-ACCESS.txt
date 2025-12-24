@@ -15,8 +15,6 @@
 45727   | THREE-AS-ID PT Indosat Ooredoo Hutchison, ID
 4761    | INDOSAT-INP-AP INDOSAT Internet Network Provider, ID
 4800    | LINTASARTA-AS-AP PT Aplikanusa Lintasarta, ID
-55674   | PUSKOM-UNY-AS-ID Universitas Negeri Yogyakarta, ID
-59151   | IDNIC-JOGJAPROV-AS-ID Diskominfo DIY, ID
 63859   | MYREPUBLIC-AS-ID PT. Eka Mas Republik, ID
 7713    | TELKOMNET-AS-AP PT Telekomunikasi Indonesia, ID
 9341    | ICONPLN-ID-AP-ISP PT INDONESIA COMNETS PLUS, ID
