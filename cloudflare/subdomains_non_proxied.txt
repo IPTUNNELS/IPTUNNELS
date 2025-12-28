@@ -2,6 +2,7 @@ sni
 instagram.com
 facebook.com
 whatsapp.net
+whatsapp.com
 scorecardresearch.com
 prod.vidiocdn.com
 iflix.com
