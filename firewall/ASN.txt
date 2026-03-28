@@ -8,6 +8,7 @@
 18004   | WIRELESSNET-ID PT WIRELESS INDONESIA WIN , ID
 23693   | TELKOMSEL-ASN-ID PT. Telekomunikasi Selular, ID
 24203   | NAPXLNET-AS-ID PT XL Axiata, ID
+45302   | DESNET-AS-ID PT DES Teknologi Informasi, ID
 45727   | THREE-AS-ID PT Indosat Ooredoo Hutchison, ID
 4761    | INDOSAT-INP-AP INDOSAT Internet Network Provider, ID
 4800    | LINTASARTA-AS-AP PT Aplikanusa Lintasarta, ID
