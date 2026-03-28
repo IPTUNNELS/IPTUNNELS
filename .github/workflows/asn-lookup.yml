@@ -36,3 +36,16 @@ jobs:
             git commit -m "Update ASN lookup files"
             git push
           fi
+
+      - name: Trigger Synch ASN
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GHA_WORKFLOW_TRIGGER }}
+          script: |
+            const result = await github.rest.actions.createWorkflowDispatch({
+              owner: 'malikshi',
+              repo: 'ASN',
+              workflow_id: 'bgpview-prefixes.yml',
+              ref: 'main'
+            })
+            console.log(result)
