@@ -2,6 +2,7 @@
 4837    | CHINA169-BACKBONE CHINA UNICOM China169 Backbone, CN
 56048   | CMNET-BEIJING-AP China Mobile Communicaitons Corporation, CN
 9808    | CHINAMOBILE-CN China Mobile Communications Group Co., Ltd., CN
+58495   | HSPNET-AS-ID PT Parsaoran Global Datatrans, ID
 17676   | GIGAINFRA SoftBank Corp., JP
 4713    | OCN NTT DOCOMO BUSINESS,Inc., JP
 7522    | STCN STNet, Incorporated, JP
