@@ -7,6 +7,7 @@
 17451   | BIZNET-AS-AP BIZNET NETWORKS, ID
 58495   | HSPNET-AS-ID PT Parsaoran Global Datatrans, ID
 17676   | GIGAINFRA SoftBank Corp., JP
+2915    | BBIX-OCX BBIX, Inc., JP
 4713    | OCN NTT DOCOMO BUSINESS,Inc., JP
 7522    | STCN STNet, Incorporated, JP
 38466   | UMOBILE-AS-AP U Mobile Sdn Bhd, MY
