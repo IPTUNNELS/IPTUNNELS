@@ -2,6 +2,7 @@
 4837    | CHINA169-BACKBONE CHINA UNICOM China169 Backbone, CN
 56048   | CMNET-BEIJING-AP China Mobile Communicaitons Corporation, CN
 9808    | CHINAMOBILE-CN China Mobile Communications Group Co., Ltd., CN
+135478  | ASN-CBNBROADBAND PT. Cyberindo Aditama, ID
 139967  | YAMNET-AS-ID PT. Yasmin Amanah Media, ID
 142370  | IDNIC-MSN-AS-ID PT Master Star Network, ID
 17451   | BIZNET-AS-AP BIZNET NETWORKS, ID
