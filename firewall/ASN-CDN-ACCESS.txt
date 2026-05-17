@@ -9,6 +9,7 @@
 142370  | IDNIC-MSN-AS-ID PT Master Star Network, ID
 17451   | BIZNET-AS-AP BIZNET NETWORKS, ID
 58495   | HSPNET-AS-ID PT Parsaoran Global Datatrans, ID
+138384  | RMNI-AS-AP Rakuten Mobile Network, Inc., JP
 17676   | GIGAINFRA SoftBank Corp., JP
 2915    | BBIX-OCX BBIX, Inc., JP
 4713    | OCN NTT DOCOMO BUSINESS,Inc., JP
