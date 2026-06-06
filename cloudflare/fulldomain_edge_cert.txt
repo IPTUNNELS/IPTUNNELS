@@ -31,6 +31,7 @@ df.game.naver.com
 cache.netflix.com
 creativeservices.netflix.com
 npca.netflix.com
+listen.noice.id
 info.insights.office.com
 resources.office.com
 devs.quipper.com
@@ -67,5 +68,4 @@ v.whatsapp.net
 source.zoom.us
 store.zoom.us
 support.zoom.us
-listen.noice.id
 zoomgov
