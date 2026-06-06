@@ -67,4 +67,5 @@ v.whatsapp.net
 source.zoom.us
 store.zoom.us
 support.zoom.us
+listen.noice.id
 zoomgov
