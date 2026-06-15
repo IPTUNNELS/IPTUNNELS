@@ -13,6 +13,7 @@ s.shopee.co.id
 investor.fb.com
 grabacademyportal.grab.com
 grabalumni.grab.com
+investors.grab.com
 graph.instagram.com
 collection.linefriends.com
 store.linefriends.com
