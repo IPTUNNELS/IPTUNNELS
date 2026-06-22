@@ -1,19 +1,20 @@
-4134    | CHINANET-BACKBONE No.31,Jin-rong Street, CN
-4837    | CHINA169-BACKBONE CHINA UNICOM China169 Backbone, CN
-56048   | CMNET-BEIJING-AP China Mobile Communicaitons Corporation, CN
-9808    | CHINAMOBILE-CN China Mobile Communications Group Co., Ltd., CN
-206067  | H3GUK, GB
-135478  | ASN-CBNBROADBAND PT. Cyberindo Aditama, ID
-136874  | GARUDA-AS-ID PT. Garuda Media Telematika, ID
-139967  | YAMNET-AS-ID PT. Yasmin Amanah Media, ID
-142370  | IDNIC-MSN-AS-ID PT Master Star Network, ID
-17451   | BIZNET-AS-AP BIZNET NETWORKS, ID
-58495   | HSPNET-AS-ID PT Parsaoran Global Datatrans, ID
-138384  | RMNI-AS-AP Rakuten Mobile Network, Inc., JP
-17676   | GIGAINFRA SoftBank Corp., JP
-2915    | BBIX-OCX BBIX, Inc., JP
-4713    | OCN NTT DOCOMO BUSINESS,Inc., JP
-7522    | STCN STNet, Incorporated, JP
-38466   | UMOBILE-AS-AP U Mobile Sdn Bhd, MY
-45960   | YTLCOMMS-AS-AP YTL COMMUNICATIONS SDN BHD, MY
+4134    | CHINANET-BACKBONE - No.31,Jin-rong Street, CN
+4837    | CHINA169-Backbone - CHINA UNICOM China169 Backbone, CN
+56048   | CMNET-BEIJING-AP - China Mobile Communicaitons Corporation, CN
+9808    | CHINAMOBILE-CN - China Mobile Communications Group Co., Ltd., CN
+206067  | H3GUK - Hutchison 3G UK Limited, GB
+135478  | ASN-CBNBroadband - PT. Cyberindo Aditama, ID
+136874  | GARUDA-AS-ID - PT. Garuda Media Telematika, ID
+139967  | YAMNET-AS-ID - PT. Yasmin Amanah Media, ID
+142370  | IDNIC-MSN-AS-ID - PT Master Star Network, ID
+17451   | BIZNET-AS-AP - BIZNET NETWORKS, ID
+58495   | HSPNET-AS-ID - PT Parsaoran Global Datatrans, ID
+138384  | RMNI-AS-AP - Rakuten Mobile Network, Inc., JP
+17676   | GIGAINFRA - SoftBank Corp., JP
+2915    | BBIX-OCX - BBIX, Inc., JP
+4713    | OCN - NTT DOCOMO BUSINESS,Inc., JP
+7522    | STCN - STNet, Incorporated, JP
+38466   | UMOBILE-AS-AP - U Mobile Sdn Bhd, MY
+45960   | YTLCOMMS-AS-AP - YTL COMMUNICATIONS SDN BHD, MY
+9534    | MAXIS-AS1-AP - Binariang Berhad, MY
 30598   | CCL-ASN - Carnival Corporation, US
