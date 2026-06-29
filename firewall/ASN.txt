@@ -7,6 +7,7 @@
 149877  | IJE-AS-ID - PT Integrasi Jaringan Ekosistem, ID
 17670   | MNCKABELMEDIACOM-ID - PT. MNC Kabel Mediacom, ID
 17885   | JKTXLNET-AS-AP - PT XL Axiata Tbk, ID
+17995   | SOLUSINET-AS-ID - PT iForte Global Internet, ID
 18004   | WIRELESSNET-ID - PT WIRELESS INDONESIA ( WIN ), ID
 23693   | TELKOMSEL-ASN-ID - PT. Telekomunikasi Selular, ID
 24203   | NAPXLNET-AS-ID - PT XL Axiata, ID
