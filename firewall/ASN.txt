@@ -4,8 +4,10 @@
 139994  | XLNET-FTTH-ID - PT XL Axiata Tbk, ID
 140401  | PROXINET-AS-ID - PT Proxi Jaringan Nusantara, ID
 141140  | IDNIC-MYRISE-AS-ID - PT Jinde Grup Indonesia, ID
+142319  | IDNIC-VIBERLINK-AS-ID - PT Telemedia Komunikasi Pratama, ID
 142342  | IDNIC-AKSESNET-AS-ID - PT Media Akses Data, ID
 149877  | IJE-AS-ID - PT Integrasi Jaringan Ekosistem, ID
+150962  | IDNIC-INTERA-ID - PT. Internet Rakyat Solusi Indonesia, ID
 17670   | MNCKABELMEDIACOM-ID - PT. MNC Kabel Mediacom, ID
 17885   | JKTXLNET-AS-AP - PT XL Axiata Tbk, ID
 17995   | SOLUSINET-AS-ID - PT iForte Global Internet, ID
