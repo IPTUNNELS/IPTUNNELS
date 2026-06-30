@@ -1,5 +1,6 @@
 398962  | CONTROLD - CONTROLD INC., CA
 133798  | SMARTFREN-AS-ID - PT. Smartfren Telecom, Tbk, ID
+136873  | MEGADATA-AS-ID - MEGADATA-ISP, ID
 138886  | DBN-AS-ID - PT Data Buana Nusantara, ID
 139994  | XLNET-FTTH-ID - PT XL Axiata Tbk, ID
 140401  | PROXINET-AS-ID - PT Proxi Jaringan Nusantara, ID
